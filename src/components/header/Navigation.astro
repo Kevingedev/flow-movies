@@ -1,0 +1,36 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+    { name: "Home", href: "/", active: currentPath === "/" },
+    {
+        name: "Movies",
+        href: "/movies",
+        active: currentPath.startsWith("/movies"),
+    },
+    { name: "TV Shows", href: "/tv", active: currentPath.startsWith("/tv") },
+    { name: "My List", href: "/list", active: currentPath.startsWith("/list") },
+];
+---
+
+<nav class="hidden lg:flex items-center space-x-8">
+    <ul class="flex items-center gap-6">
+        {
+            navItems.map((item) => (
+                <li>
+                    <a
+                        href={item.href}
+                        class:list={[
+                            "text-base font-medium transition-colors duration-200 hover:drop-shadow-[0_0_8px_rgba(220,38,38,0.4)]",
+                            item.active
+                                ? "text-flow-accent drop-shadow-[0_0_8px_rgba(220,38,38,0.4)]"
+                                : "text-flow-sub hover:text-white",
+                        ]}
+                    >
+                        {item.name}
+                    </a>
+                </li>
+            ))
+        }
+    </ul>
+</nav>

@@ -1,0 +1,143 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+    { name: "Home", href: "/", active: currentPath === "/" },
+    {
+        name: "Movies",
+        href: "/movies",
+        active: currentPath.startsWith("/movies"),
+    },
+    { name: "TV Shows", href: "/tv", active: currentPath.startsWith("/tv") },
+    { name: "My List", href: "/list", active: currentPath.startsWith("/list") },
+];
+---
+
+<div
+    id="mobile-menu"
+    class="fixed inset-0 w-full h-full z-[100] bg-flow-bg/98 backdrop-blur-2xl lg:hidden translate-x-full opacity-0 pointer-events-none transition-all duration-500 ease-in-out overflow-y-auto"
+    aria-hidden="true"
+>
+    <div class="flex flex-col h-full p-6">
+        <!-- Header del Menú -->
+        <div class="flex items-center justify-between mb-12">
+            <span class="text-2xl font-bold tracking-tight text-flow-text">
+                Flow <span class="text-flow-accent">Movies</span>
+            </span>
+            <button
+                id="close-menu"
+                class="p-2 text-white hover:bg-white/10 rounded-full transition-colors outline-none"
+                aria-label="Close menu"
+            >
+                <svg
+                    class="w-8 h-8"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Links de Navegación -->
+        <nav class="flex-1">
+            <ul class="flex flex-col gap-8">
+                {
+                    navItems.map((item) => (
+                        <li>
+                            <a
+                                href={item.href}
+                                class:list={[
+                                    "text-4xl font-bold transition-all duration-300 block mobile-nav-link",
+                                    item.active
+                                        ? "text-flow-accent translate-x-2"
+                                        : "text-flow-sub hover:text-white hover:translate-x-2",
+                                ]}
+                            >
+                                {item.name}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </nav>
+
+        <!-- Footer del Menú (Usuario) -->
+        <div class="mt-auto pt-8 border-t border-white/10">
+            <p
+                class="text-flow-sub text-sm mb-4 uppercase tracking-widest font-semibold"
+            >
+                Account
+            </p>
+            <div class="flex items-center gap-4 p-3 bg-white/5 rounded-2xl">
+                <div
+                    class="h-12 w-12 rounded-full bg-gradient-to-tr from-flow-accent to-red-900 flex items-center justify-center shadow-lg shadow-flow-accent/20"
+                >
+                    <svg
+                        class="h-6 w-6 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z"
+                        ></path>
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-white font-bold">Flow User</span>
+                    <span class="text-flow-accent text-xs font-medium uppercase"
+                        >Premium Plan</span
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const initMenu = () => {
+        const openBtn = document.getElementById("open-menu");
+        const closeBtn = document.getElementById("close-menu");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const navLinks = document.querySelectorAll(".mobile-nav-link");
+
+        const openMenu = () => {
+            if (!mobileMenu) return;
+            mobileMenu.classList.remove(
+                "translate-x-full",
+                "opacity-0",
+                "pointer-events-none",
+            );
+            mobileMenu.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden";
+        };
+
+        const closeMenu = () => {
+            if (!mobileMenu) return;
+            mobileMenu.classList.add(
+                "translate-x-full",
+                "opacity-0",
+                "pointer-events-none",
+            );
+            mobileMenu.setAttribute("aria-hidden", "true");
+            document.body.style.overflow = "";
+        };
+
+        openBtn?.addEventListener("click", openMenu);
+        closeBtn?.addEventListener("click", closeMenu);
+
+        // Cerrar al hacer clic en un link (para transiciones suaves)
+        navLinks.forEach((link) => {
+            link.addEventListener("click", closeMenu);
+        });
+    };
+
+    // Inicializar tanto en carga normal como en View Transitions
+    initMenu();
+    document.addEventListener("astro:page-load", initMenu);
+</script>
