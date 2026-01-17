@@ -1,0 +1,69 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import type { Movie } from "../../types/movie";
+
+interface Props {
+    movie: Movie;
+}
+
+const { movie } = Astro.props;
+const posterUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+
+
+---
+
+<a
+    href={`/movie/${movie.id}`}
+    aria-label={`Ver detalles de ${movie.title}`}
+    class="group relative flex-shrink-0 w-[40%] sm:w-[30%] md:w-[18%] aspect-[2/3] rounded-xl overflow-hidden cursor-pointer transition-all duration-300 ease-out hover:scale-105 hover:shadow-[0_0_20px_rgba(220,38,38,0.3)] hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-flow-accent text-white"
+>
+    <!-- Background Image with Lazy Loading -->
+    <div
+        class="absolute inset-0 bg-gray-800 animate-pulse group-hover:animate-none"
+    >
+        <Image
+            src={posterUrl}
+            alt={movie.title}
+            width={500}
+            height={750}
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            loading="lazy"
+        />
+    </div>
+
+    <!-- Glassmorphism Overlay (Visible on Hover) -->
+    <div
+        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4"
+    >
+        <div
+            class="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
+        >
+            <h3 class="text-lg font-bold leading-tight mb-1 line-clamp-2">
+                {movie.title}
+            </h3>
+            <div class="flex justify-between items-center gap-2 text-sm text-gray-300">
+                <span class="font-medium text-white border border-flow-accent rounded-full px-2 text-sm bg-flow-accent/10"
+                    >{movie.release_date}</span>
+                <div>
+                    <Icon
+                    name="lucide:star"
+                    class="size-4 text-yellow-500 fill-current"
+                    />
+                    <span class="font-medium text-white"
+                        >{movie.vote_average.toFixed(1)}</span
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Always Visible Title Gradient (Optional, but good for UX if hover isn't available) -->
+    <div
+        class="md:hidden absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80 pointer-events-none"
+    >
+    </div>
+    <div class="md:hidden absolute bottom-2 left-2 right-2 pointer-events-none">
+        <p class="text-xs font-semibold text-white truncate">{movie.title}</p>
+    </div>
+</a>

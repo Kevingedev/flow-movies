@@ -1,0 +1,62 @@
+---
+import { getTrendingMovies } from "../../services/tmdb";
+import MovieCard from "./MovieCard.astro";
+import type { Movie } from "../../types/movie";
+
+const trendingMovies: Movie[] = await getTrendingMovies();
+
+// console.log(trendingMovies);
+---
+
+<section class="w-full py-8 md:py-12 relative z-10">
+    <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-16">
+        <!-- Section Header -->
+        <div class="flex items-end justify-between mb-6 md:mb-8 px-2">
+            <div>
+                <h2
+                    class="text-2xl md:text-3xl font-bold text-white tracking-tight"
+                >
+                    Trending Now
+                </h2>
+                <div class="h-1 w-20 bg-flow-accent rounded-full mt-2"></div>
+            </div>
+            <a
+                href="#"
+                class="text-sm text-flow-sub hover:text-white transition-colors font-medium flex items-center gap-1 group"
+            >
+                Ver todo
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4 transition-transform group-hover:translate-x-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Horizontal Scroll Container -->
+        <!-- 
+      Mobile: overflow-x-auto, no-scrollbar, gap-4
+      Desktop: flex-wrap or controlled grid, but prompted for swiper. 
+      The prompt requested "Horizontal Swiper" behavior.
+      Using simple CSS scroll snap for a native app feel is often better than heavy JS libs for this.
+    -->
+        <div
+            class="flex gap-4 md:gap-6 overflow-x-auto overflow-y-hidden pb-4 no-scrollbar snap-x snap-mandatory scroll-smooth"
+        >
+            {
+                trendingMovies
+                    .sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime())
+                    .slice(0, 10)
+                    .map((movie) => <MovieCard movie={movie} />)
+            }
+        </div>
+    </div>
+</section>

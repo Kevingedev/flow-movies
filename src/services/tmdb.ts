@@ -11,7 +11,7 @@ const OPTIONS = {
   },
 };
 
-export async function getHeroMovie(){
+export async function getHeroMovie() {
 
   const url = `${URL_BASE}/movie/upcoming?language=${LANGUAGE}&page=1&sort_by=vote_average.desc`;
 
@@ -27,4 +27,21 @@ export async function getHeroMovie(){
 
 // https://api.themoviedb.org/3/search/movie?query=fight&include_adult=false&language=en-US&page=1
 
-// https://api.themoviedb.org/3/trending/all/day?language=en-US
+export async function getTrendingMovies() {
+  const url = `${URL_BASE}/trending/movie/day?language=${LANGUAGE}`;
+  const response = await fetch(url, OPTIONS);
+  const data: TMDBResponse = await response.json();
+  return data.results; // devuelve un array de películas
+}
+
+export async function getMovieDetails(id: string) {
+  const url = `${URL_BASE}/movie/${id}?language=${LANGUAGE}`;
+  const response = await fetch(url, OPTIONS);
+
+  if (!response.ok) {
+    throw new Error('Movie not found');
+  }
+
+  const data = await response.json();
+  return data as Movie;
+}

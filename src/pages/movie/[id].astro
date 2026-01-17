@@ -1,0 +1,51 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/Hero.astro";
+import { getMovieDetails } from "../../services/tmdb";
+
+const { id } = Astro.params;
+
+if (!id) {
+    return Astro.redirect("/404");
+}
+
+let movie;
+try {
+    movie = await getMovieDetails(id);
+} catch (error) {
+    // If movie not found, redirect to 404 or handle specific error
+    return Astro.redirect("/404");
+}
+
+// console.log(movie);
+---
+
+<Layout title={movie.title}>
+    <Hero movie={movie} />
+
+    <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-16 py-12 text-white">
+        <!-- Minimalist content for now -->
+        <h2 class="text-3xl font-bold mb-4">Overview</h2>
+        <p class="text-lg text-flow-sub leading-relaxed max-w-4xl">
+            {movie.overview}
+        </p>
+
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
+            <div>
+                <span class="block text-flow-sub mb-1">Release Date</span>
+                <span class="font-semibold">{movie.release_date}</span>
+            </div>
+            <div>
+                <span class="block text-flow-sub mb-1">Rating</span>
+                <span class="font-semibold"
+                    >{movie.vote_average.toFixed(1)} / 10</span
+                >
+            </div>
+            <div>
+                <span class="block text-flow-sub mb-1">Votes</span>
+                <span class="font-semibold">{movie.vote_count}</span>
+            </div>
+            <!-- We can add genres here if we extend the type/service -->
+        </div>
+    </div>
+</Layout>

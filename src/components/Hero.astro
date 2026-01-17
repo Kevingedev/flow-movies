@@ -68,7 +68,10 @@ const posterUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
                 <div
                     class="flex items-center gap-1.5 px-2.5 py-1 md:px-3 md:py-1 bg-white/10 border border-white/10 rounded-full backdrop-blur-md"
                 >
-                    <Icon name="lucide:star" class="size-4 fill-current text-yellow-400" />
+                    <Icon
+                        name="lucide:star"
+                        class="size-4 fill-current text-yellow-400"
+                    />
                     <span class="text-xs md:text-sm font-semibold text-white">
                         {movie.vote_average?.toFixed(1) || "N/A"} Rating
                     </span>

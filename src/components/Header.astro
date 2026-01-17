@@ -10,7 +10,7 @@ import MobileMenu from "./header/MobileMenu.astro";
     class="fixed top-0 left-0 right-0 z-50 bg-flow-bg/80 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20 transition-all duration-300"
 >
     <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-12">
-        <div class="flex items-center justify-between h-20">
+        <div class="flex items-center justify-between h-24 lg:h-20">
             <!-- Left: Mobile Menu & Logo -->
             <div class="flex-shrink-0 flex items-center gap-4">
                 <button
@@ -19,7 +19,7 @@ import MobileMenu from "./header/MobileMenu.astro";
                     aria-label="Open menu"
                 >
                     <svg
-                        class="w-7 h-7"
+                        class="w-9 h-9"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -41,11 +41,13 @@ import MobileMenu from "./header/MobileMenu.astro";
 
             <!-- Right: Search & Actions -->
             <div
-                class="flex items-center justify-end gap-x-2 sm:gap-x-4 lg:gap-x-6"
+                class="flex items-center justify-end flex-1 lg:flex-none gap-x-3 sm:gap-x-4 lg:gap-x-6 ml-4"
             >
-                <SearchBar />
+                <div class="flex-shrink-0">
+                    <SearchBar />
+                </div>
                 <div class="w-px h-6 bg-gray-800 hidden md:block"></div>
-                <div class="hidden sm:block">
+                <div class="hidden sm:block flex-shrink-0">
                     <UserActions />
                 </div>
             </div>

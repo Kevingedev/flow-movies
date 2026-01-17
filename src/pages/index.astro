@@ -3,6 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import { getHeroMovie } from "../services/tmdb";
 
+import TrendingSection from "../components/movies/TrendingSection.astro";
+
 const movie = await getHeroMovie();
 
 // console.log(movie);
@@ -10,6 +12,10 @@ const movie = await getHeroMovie();
 
 <Layout title="Home">
 	<Hero movie={movie} />
+
+	<div class="relative bg-flow-bg">
+		<TrendingSection />
+	</div>
 
 	<!-- Other content sections will go here -->
 	<div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-16 py-12">
