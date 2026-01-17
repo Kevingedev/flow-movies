@@ -53,8 +53,5 @@ import MobileMenu from "./header/MobileMenu.astro";
     </div>
 </header>
 
-<!-- Move MobileMenu outside the header to avoid backdrop-filter stacking context issues -->
+<!-- MobileMenu handles its own positioning -->
 <MobileMenu />
-
-<!-- Spacer to prevent content overlap since header is fixed -->
-<div class="h-20"></div>

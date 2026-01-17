@@ -1,0 +1,136 @@
+---
+// src/components/Hero.astro
+import { Image } from "astro:assets";
+import type { Movie } from "../types/movie";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+    movie: Movie;
+}
+
+const { movie } = Astro.props;
+
+// 1. Tratamiento de Imagen y Calidad: 'original' para máxima nitidez en pantallas grandes
+const posterUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
+---
+
+<section
+    class="relative w-full h-[70vh] md:min-h-[80vh] md:h-auto lg:h-[95vh] flex items-end overflow-hidden bg-flow-bg group"
+>
+    <!-- Background System -->
+    <div class="absolute inset-0 z-0">
+        <!-- The Image itself with Parallax & Object Fit Corrected -->
+        <Image
+            class="absolute inset-0 w-full h-full object-cover object-top scale-110 transition-transform duration-700 will-change-transform group-hover:scale-105"
+            src={posterUrl}
+            alt={movie.title}
+            width={3840}
+            height={2160}
+            loading="eager"
+            decoding="async"
+        />
+
+        <!-- Atmospheric Layers -->
+        <!-- 1. Deep Black Base for fusion -->
+        <div class="absolute inset-0 bg-black/20"></div>
+
+        <!-- 3. Vignette Profesional -->
+        <!-- Gradiente desde abajo (negro sólido) hacia arriba (transparente) + bordes laterales -->
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent"
+        >
+        </div>
+        <div
+            class="absolute inset-0 bg-gradient-to-r from-[#050505]/80 via-transparent to-[#050505]/80"
+        >
+        </div>
+    </div>
+
+    <!-- Content Container -->
+    <div
+        class="relative z-10 w-full max-w-[1920px] mx-auto px-6 md:px-12 lg:px-16 pb-12 md:pb-20"
+    >
+        <div class="max-w-4xl space-y-4 md:space-y-6 animate-fade-in-up">
+            <!-- Status Badges (Mobile Optimized) -->
+            <div class="flex items-center gap-3 md:gap-4 mb-2">
+                <div
+                    class="flex items-center gap-2 px-2.5 py-1 md:px-3 md:py-1 bg-flow-accent/20 border border-flow-accent/30 rounded-full backdrop-blur-md"
+                >
+                    <span
+                        class="w-1.5 h-1.5 rounded-full bg-flow-accent animate-pulse"
+                    ></span>
+                    <span
+                        class="text-xs md:text-sm font-bold tracking-widest uppercase text-white/90"
+                        >{movie.release_date}</span
+                    >
+                </div>
+                <!-- Rating with dynamic color based on score -->
+                <div
+                    class="flex items-center gap-1.5 px-2.5 py-1 md:px-3 md:py-1 bg-white/10 border border-white/10 rounded-full backdrop-blur-md"
+                >
+                    <Icon name="lucide:star" class="size-4 fill-current text-yellow-400" />
+                    <span class="text-xs md:text-sm font-semibold text-white">
+                        {movie.vote_average?.toFixed(1) || "N/A"} Rating
+                    </span>
+                </div>
+            </div>
+
+            <!-- Main Title (Responsive Typography) -->
+            <h1
+                class="text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-black font-montserrat tracking-tighter text-white leading-tight text-balance drop-shadow-2xl"
+            >
+                {movie.title}
+            </h1>
+
+            <!-- Description (Line Clamp for Mobile) -->
+            <p
+                class="text-flow-sub text-sm sm:text-base md:text-lg lg:text-xl max-w-xl md:max-w-2xl leading-relaxed font-medium line-clamp-3 md:line-clamp-none text-pretty"
+            >
+                {movie.overview}
+            </p>
+
+            <!-- CTA Buttons -->
+            <div
+                class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-6 md:pt-8"
+            >
+                <!-- Watch Now Button -->
+                <button
+                    class="w-full sm:w-auto group relative flex items-center justify-center gap-3 bg-flow-accent text-white px-8 py-4 rounded-full font-bold transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(220,38,38,0.4)] hover:shadow-[0_0_30px_rgba(220,38,38,0.6)]"
+                >
+                    <Icon name="lucide:play" class="size-6 fill-current" />
+                    <span class="text-lg">Watch Now</span>
+                </button>
+
+                <!-- My List Button -->
+                <button
+                    class="w-full sm:w-auto flex items-center justify-center gap-3 bg-gray-400/10 border border-white/20 backdrop-blur-sm hover:shadow-[0_0_20px_rgba(255,255,255,0.02)] text-white px-8 py-4 rounded-full font-bold transition-all duration-300 hover:scale-105 active:scale-95 hover:border-white/40"
+                >
+                    <Icon name="lucide:plus" class="size-6 fill-current" />
+                    <span class="text-lg">My List</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .font-montserrat {
+        font-family: "Montserrat", sans-serif;
+    }
+
+    /* Efecto Flow: Fade-In-Up On Load */
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in-up {
+        animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+</style>

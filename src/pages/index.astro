@@ -1,24 +1,18 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import { getHeroMovie } from "../services/tmdb";
 
-const response = await fetch('https://api.themoviedb.org/3/movie/popular?language=es-ES', {
-  headers: {
-    Authorization: `Bearer ${import.meta.env.TMDB_TOKEN}`,
-    accept: 'application/json',
-  }
-});
+const movie = await getHeroMovie();
 
-const data = await response.json();
-
-// ESTO SE VERÁ EN TU TERMINAL DE VS CODE
-console.log("Datos de la API:", data.results[0]); 
+// console.log(movie);
 ---
 
-<Layout title="Flow Movies - Home">
-	<h1 class="text-4xl font-bold text-center mt-10">
-		Bienvenido a Flow Movies 🍿
-	</h1>
-	<p class="text-center text-gray-400 mt-4">
-		Tu catálogo de cine más rápido y fluido.
-	</p>	
+<Layout title="Home">
+	<Hero movie={movie} />
+
+	<!-- Other content sections will go here -->
+	<div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-16 py-12">
+		<!-- We can add popular movies list here later -->
+	</div>
 </Layout>

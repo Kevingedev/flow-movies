@@ -8,12 +8,14 @@ Este documento describe la organización de carpetas y archivos del proyecto, ex
 
 ```
 src/
-├── components/       # Componentes reutilizables
-├── layouts/          # Plantillas base
-├── pages/            # Rutas de la aplicación
-├── services/         # Lógica de APIs externas
+├── assets/           # Archivos estáticos (SVG, Imágenes)
+├── components/       # Componentes de UI (Header, Hero, Footer)
+├── layouts/          # Layout principal de la aplicación
+├── pages/            # Rutas y páginas principales
+├── services/         # Integraciones con APIs (TMDB)
+├── styles/           # Estilos globales y temas (Tailwind)
 ├── types/            # Definiciones de TypeScript
-└── utils/            # Funciones de ayuda
+└── utils/            # Funciones de utilidad y constantes
 ```
 
 ---
@@ -29,27 +31,31 @@ Contiene dos tipos de componentes:
 
 ```
 components/
-├── MovieCard.astro       # Tarjeta de película (estática)
-├── MovieGrid.astro       # Grid de películas
-├── SearchBar.tsx         # Barra de búsqueda (interactiva)
-├── Pagination.tsx        # Controles de paginación
-├── Rating.astro          # Componente de calificación
-├── Skeleton.astro        # Placeholder de carga
-└── ui/                   # Componentes UI genéricos
-    ├── Button.tsx
-    ├── Input.tsx
-    └── Modal.tsx
+├── header/               # Componentes del Header
+│   ├── Logo.astro
+│   ├── Navigation.astro
+│   ├── SearchBar.astro
+│   ├── UserActions.astro
+│   └── MobileMenu.astro
+├── footer/               # Componentes del Footer
+│   ├── FooterColumn.astro
+│   └── SocialIcons.astro
+├── Header.astro          # Componente Header principal
+├── Footer.astro          # Componente Footer principal
+├── Hero.astro            # Hero Section con efectos premium
+└── Welcome.astro         # Componente de bienvenida (Astro default)
 ```
 
 **Uso:**
 ```astro
 ---
-import MovieCard from '../components/MovieCard.astro';
-import SearchBar from '../components/SearchBar.tsx';
+---
+import Hero from '../components/Hero.astro';
+import Header from '../components/Header.astro';
 ---
 
-<SearchBar client:load />
-<MovieCard title="Inception" rating={8.5} />
+<Header />
+<Hero />
 ```
 
 ---
@@ -65,25 +71,20 @@ Define la estructura común de todas las páginas incluyendo:
 
 ```
 layouts/
-├── BaseLayout.astro      # Layout principal con HTML base
-├── MovieLayout.astro     # Layout específico para páginas de películas
-└── partials/
-    ├── Head.astro        # Meta tags, favicon, fonts
-    ├── Navbar.astro      # Barra de navegación
-    └── Footer.astro      # Pie de página
+└── Layout.astro          # Layout principal con HTML base, fuentes y ClientRouter
 ```
 
 **Uso:**
 ```astro
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+---
+import Layout from '../layouts/Layout.astro';
 ---
 
-<BaseLayout title="Inicio" description="Descubre las mejores películas">
-  <main>
-    <!-- Contenido de la página -->
-  </main>
-</BaseLayout>
+<Layout title="Inicio">
+  <!-- El contenido se inyecta en el <slot /> del layout -->
+  <h1>Contenido de la página</h1>
+</Layout>
 ```
 
 ---
@@ -95,12 +96,9 @@ Cada archivo `.astro` en esta carpeta se convierte automáticamente en una ruta.
 
 ```
 pages/
-├── index.astro           # Ruta: /
-├── search.astro          # Ruta: /search
-├── popular.astro         # Ruta: /popular
-├── upcoming.astro        # Ruta: /upcoming
+├── index.astro           # Ruta: / (Home con Hero)
 └── movie/
-    └── [id].astro        # Ruta dinámica: /movie/12345
+    └── [id].astro        # Ruta dinámica: /movie/123 (Página de detalle)
 ```
 
 **Rutas Dinámicas:**
@@ -129,8 +127,8 @@ services/
 
 **Ejemplo (`tmdb.ts`):**
 ```typescript
-const API_KEY = import.meta.env.TMDB_API_KEY;
-const BASE_URL = 'https://api.themoviedb.org/3';
+const API_KEY = 
+const BASE_URL = 
 
 export async function getPopularMovies(page = 1) {
   const response = await fetch(
@@ -191,6 +189,33 @@ export interface Genre {
 
 ---
 
+---
+
+### `assets/`
+**Recursos estáticos del proyecto**
+
+Contiene imágenes, SVGs y otros assets que se procesan mediante Astro.
+
+```
+assets/
+├── background.svg
+└── astro.svg
+```
+
+---
+
+### `styles/`
+**Estilos globales y configuración de diseño**
+
+Centraliza la configuración de Tailwind CSS v4 y los estilos base.
+
+```
+styles/
+└── global.css            # Definición de @theme y variables de marca
+```
+
+---
+
 ### `utils/`
 **Funciones de ayuda**
 
@@ -207,7 +232,7 @@ utils/
 
 **Ejemplo (`imageUrl.ts`):**
 ```typescript
-const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p';
+const TMDB_IMAGE_BASE = 
 
 export function getPosterUrl(path: string | null, size = 'w500'): string {
   if (!path) return '/placeholder-poster.jpg';
@@ -272,14 +297,14 @@ export function getYear(dateString: string): number {
                       │
                       ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                    layouts/MovieLayout.astro                │
+│                    layouts/Layout.astro                     │
 │                   Renderiza la página HTML                  │
 └─────────────────────┬───────────────────────────────────────┘
                       │
                       ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                    components/                              │
-│        MovieCard, Rating, etc. muestran los datos           │
+│        Hero, Header, etc. muestran los datos                │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -289,7 +314,7 @@ export function getYear(dateString: string): number {
 
 | Tipo | Convención | Ejemplo |
 |------|------------|---------|
-| Componentes Astro | PascalCase.astro | `MovieCard.astro` |
+| Componentes Astro | PascalCase.astro | `Hero.astro` |
 | Componentes React | PascalCase.tsx | `SearchBar.tsx` |
 | Servicios | camelCase.ts | `tmdb.ts` |
 | Tipos | PascalCase | `MovieDetails` |
@@ -321,4 +346,4 @@ PUBLIC_SITE_URL=https://flow-movies.com
 
 ---
 
-**Última actualización:** Enero 2025
+**Última actualización:** Enero 2026
