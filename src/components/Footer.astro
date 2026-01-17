@@ -1,0 +1,76 @@
+---
+import Logo from "./header/Logo.astro";
+import FooterColumn from "./footer/FooterColumn.astro";
+import SocialIcons from "./footer/SocialIcons.astro";
+
+const footerLinks = {
+    explorar: [
+        { label: "Home", href: "/" },
+        { label: "Películas", href: "/movies" },
+        { label: "Series", href: "/tv" },
+        { label: "Novedades", href: "/new" },
+    ],
+    soporte: [
+        { label: "Centro de ayuda", href: "/help" },
+        { label: "Términos de servicio", href: "/terms" },
+        { label: "Privacidad", href: "/privacy" },
+    ],
+    cuenta: [
+        { label: "Mi Lista", href: "/list" },
+        { label: "Perfil", href: "/profile" },
+        { label: "Configuración", href: "/settings" },
+    ],
+};
+---
+
+<footer class="bg-flow-bg border-t border-flow-border/50 pt-16 pb-8 mt-20">
+    <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-12">
+        <div
+            class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16"
+        >
+            <!-- Logo & Description Section -->
+            <div class="col-span-2 lg:col-span-2 flex flex-col gap-6">
+                <div>
+                    <Logo />
+                </div>
+                <p class="text-flow-sub text-sm leading-relaxed max-w-xs">
+                    Tu destino definitivo para el entretenimiento fluido.
+                    Disfruta de las mejores películas y series con una
+                    experiencia premium y minimalista.
+                </p>
+                <SocialIcons />
+            </div>
+
+            <!-- Navigation Columns -->
+            <FooterColumn title="Explorar" links={footerLinks.explorar} />
+            <FooterColumn title="Soporte" links={footerLinks.soporte} />
+            <FooterColumn title="Cuenta" links={footerLinks.cuenta} />
+        </div>
+
+        <!-- Bottom Section -->
+        <div
+            class="pt-8 border-t border-flow-border/30 flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+            <p class="text-flow-sub text-xs">
+                © {new Date().getFullYear()} Flow Movies. Todos los derechos reservados.
+            </p>
+            <div class="flex gap-6">
+                <a
+                    href="#"
+                    class="text-flow-sub hover:text-white text-xs transition-colors transition-colors"
+                    >Cookies</a
+                >
+                <a
+                    href="#"
+                    class="text-flow-sub hover:text-white text-xs transition-colors transition-colors"
+                    >Legal</a
+                >
+                <a
+                    href="#"
+                    class="text-flow-sub hover:text-white text-xs transition-colors transition-colors"
+                    >Publicidad</a
+                >
+            </div>
+        </div>
+    </div>
+</footer>
