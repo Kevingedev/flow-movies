@@ -1,0 +1,141 @@
+---
+import Layout from "../layouts/Layout.astro";
+import GridMovieCard from "../components/movies/GridMovieCard.astro";
+import CategoryFilter from "../components/ui/CategoryFilter.astro";
+import {
+    getTrendingMovies,
+    getDiscoverMovies,
+    getGenres,
+} from "../services/tmdb";
+import { Icon } from "astro-icon/components";
+import type { Movie } from "../types/movie";
+
+// Get query params
+const { searchParams } = Astro.url;
+const genre = searchParams.get("genre");
+const page = parseInt(searchParams.get("page") || "1");
+
+// State
+let movies: Movie[] = [];
+let title = "Trending Movies";
+
+// Professional data fetching with parallelization and error resilience
+try {
+    if (genre) {
+        // Fetch movies and genres in parallel for better performance
+        const [movieResults, genreList] = await Promise.all([
+            getDiscoverMovies(genre, page),
+            getGenres(),
+        ]);
+
+        movies = movieResults;
+
+        // Find current genre name dynamically from the API
+        const currentGenre = genreList.find((g) => g.id.toString() === genre);
+        title = currentGenre
+            ? `${currentGenre.name} Movies`
+            : "Discover Movies";
+    } else {
+        // Regular trending movies
+        movies = await getTrendingMovies(page);
+        title = "Trending Movies";
+    }
+} catch (error) {
+    console.error("[TrendingPage] Error loading movie data:", error);
+    // Silent fallback: title remains as initialized, movies remains empty array
+}
+
+// console.log(movies);
+// Next page URL logic
+const getNextPageUrl = () => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", (page + 1).toString());
+    return `?${params.toString()}`;
+};
+
+const getPrevPageUrl = () => {
+    if (page <= 1) return null;
+    const params = new URLSearchParams(searchParams);
+    params.set("page", (page - 1).toString());
+    return `?${params.toString()}`;
+};
+---
+
+<Layout title={title}>
+    <div class="min-h-screen bg-black pt-28 pb-12 px-4 sm:px-6 lg:px-12">
+        <div class="max-w-[1920px] mx-auto">
+            <!-- Header -->
+            <header class="flex flex-col gap-6 mb-10">
+                <div class="flex items-center gap-4">
+                    <a
+                        href="/"
+                        class="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors group"
+                        aria-label="Go back"
+                    >
+                        <Icon
+                            name="lucide:chevron-left"
+                            class="size-6 group-hover:-translate-x-0.5 transition-transform"
+                        />
+                    </a>
+                    <h1
+                        class="text-3xl md:text-4xl font-bold text-white tracking-tight"
+                    >
+                        {title}
+                    </h1>
+                </div>
+
+                <!-- Filters -->
+                <div
+                    class="w-full md:overflow-x-auto overflow-visible pb-2 no-scrollbar"
+                >
+                    <CategoryFilter activeCategory={genre || "all"} />
+                </div>
+            </header>
+
+            <!-- Content Grid -->
+            {
+                movies.length > 0 ? (
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-8">
+                        {movies.map((movie) => (
+                            <GridMovieCard movie={movie} />
+                        ))}
+                    </div>
+                ) : (
+                    <div class="flex flex-col items-center justify-center py-20 text-center">
+                        <p class="text-gray-400">No movies found.</p>
+                    </div>
+                )
+            }
+
+            <!-- Pagination (Simple) -->
+            <div class="mt-12 flex justify-center items-center gap-4">
+                {
+                    getPrevPageUrl() ? (
+                        <a
+                            href={getPrevPageUrl()}
+                            class="px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 text-white font-medium transition-colors border border-white/10"
+                        >
+                            Previous
+                        </a>
+                    ) : (
+                        <button
+                            disabled
+                            class="px-6 py-3 rounded-full bg-white/5 text-gray-500 font-medium border border-white/5 cursor-not-allowed"
+                        >
+                            Previous
+                        </button>
+                    )
+                }
+
+                <span class="text-sm text-gray-400">Page {page}</span>
+
+                <a
+                    href={getNextPageUrl()}
+                    class="px-6 py-3 rounded-full bg-flow-accent hover:bg-red-700 text-white font-medium transition-colors shadow-lg shadow-red-900/20"
+                >
+                    Next Page
+                </a>
+            </div>
+        </div>
+    </div>
+</Layout>

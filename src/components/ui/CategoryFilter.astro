@@ -1,0 +1,163 @@
+---
+interface Props {
+    activeCategory?: string;
+}
+
+import { getGenres } from "../../services/tmdb";
+
+const { activeCategory } = Astro.props;
+
+const genres = await getGenres();
+
+const categories = [
+    { id: "all", name: "All Trending", path: "/trending" },
+    ...genres.map((genre) => ({
+        id: genre.id.toString(),
+        name: genre.name,
+        path: `/trending?genre=${genre.id}`,
+    })),
+];
+
+const isActive = (id: string) => {
+    if (activeCategory === id) return true;
+    if (!activeCategory && id === "all") return true;
+    return false;
+};
+
+const activeCategoryName =
+    categories.find((cat) => isActive(cat.id))?.name || "Categories";
+---
+
+<div class="relative">
+    <!-- Mobile Dropdown -->
+    <div class="md:hidden">
+        <button
+            id="category-dropdown-button"
+            class="w-full flex items-center justify-between px-5 py-3 bg-white/5 border border-white/10 rounded-2xl text-white font-medium hover:bg-white/10 transition-all duration-300"
+        >
+            <span class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-flow-accent"></span>
+                {activeCategoryName}
+            </span>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 text-gray-400 transition-transform duration-300"
+                id="dropdown-icon"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+            >
+                <path
+                    fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+            </svg>
+        </button>
+
+        <div
+            id="category-menu"
+            class="hidden absolute top-full left-0 right-0 z-50 mt-2 p-2 bg-flow-bg/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden animate-dropdown"
+        >
+            <div
+                class="grid grid-cols-2 gap-2 max-h-[60vh] overflow-y-auto custom-scrollbar p-1"
+            >
+                {
+                    categories.map((cat) => (
+                        <a
+                            href={cat.path}
+                            class:list={[
+                                "px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 border text-center",
+                                isActive(cat.id)
+                                    ? "bg-flow-accent text-white border-flow-accent"
+                                    : "bg-white/5 text-gray-400 border-white/5 hover:bg-flow-accent/10 hover:text-white",
+                            ]}
+                        >
+                            {cat.name}
+                        </a>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Desktop Grid/List -->
+    <div class="hidden md:flex flex-wrap gap-2 lg:gap-3">
+        {
+            categories.map((cat) => (
+                <a
+                    href={cat.path}
+                    class:list={[
+                        "px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 border whitespace-nowrap",
+                        isActive(cat.id)
+                            ? "bg-flow-accent text-white border-flow-accent shadow-lg shadow-flow-accent/20"
+                            : "bg-white/5 backdrop-blur-sm text-gray-400 border-white/10 hover:border-flow-accent/40 hover:text-white hover:shadow-[0_0_10px_rgba(220,38,38,0.3)]",
+                    ]}
+                >
+                    {cat.name}
+                </a>
+            ))
+        }
+    </div>
+</div>
+
+<script>
+    const initDropdown = () => {
+        const button = document.getElementById("category-dropdown-button");
+        const menu = document.getElementById("category-menu");
+        const icon = document.getElementById("dropdown-icon");
+
+        if (button && menu && icon) {
+            // Usamos onclick para asegurar que solo haya un listener activo
+            button.onclick = (e) => {
+                e.stopPropagation();
+                menu.classList.toggle("hidden");
+                icon.classList.toggle("rotate-180");
+            };
+
+            // Cerrar al hacer click fuera
+            document.onclick = (e) => {
+                if (
+                    !menu.contains(e.target as Node) &&
+                    !button.contains(e.target as Node)
+                ) {
+                    menu.classList.add("hidden");
+                    icon.classList.remove("rotate-180");
+                }
+            };
+        }
+    };
+
+    // Inicializar en la carga inicial y en cada transición de página
+    initDropdown();
+    document.addEventListener("astro:page-load", initDropdown);
+</script>
+
+<style>
+    .animate-dropdown {
+        animation: slideDown 0.3s ease-out forwards;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+</style>

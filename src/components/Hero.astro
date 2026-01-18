@@ -89,7 +89,7 @@ const posterUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
             <p
                 class="text-flow-sub text-sm sm:text-base md:text-lg lg:text-xl max-w-xl md:max-w-2xl leading-relaxed font-medium line-clamp-3 md:line-clamp-none text-pretty"
             >
-                {movie.overview}
+                {movie.overview.slice(0, 42)}...
             </p>
 
             <!-- CTA Buttons -->
@@ -98,7 +98,10 @@ const posterUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
             >
                 <!-- Watch Now Button -->
                 <button
-                    class="w-full sm:w-auto group relative flex items-center justify-center gap-3 bg-flow-accent text-white px-8 py-4 rounded-full font-bold transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(220,38,38,0.4)] hover:shadow-[0_0_30px_rgba(220,38,38,0.6)]"
+                    class="w-full sm:w-auto group relative flex items-center justify-center gap-3 
+                        bg-flow-accent text-white px-8 py-3 rounded-full font-bold transition-all 
+                        duration-300 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(220,38,38,0.4)] 
+                        hover:shadow-[0_0_30px_rgba(220,38,38,0.6)]"
                 >
                     <Icon name="lucide:play" class="size-6 fill-current" />
                     <span class="text-lg">Watch Now</span>
@@ -106,7 +109,7 @@ const posterUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
 
                 <!-- My List Button -->
                 <button
-                    class="w-full sm:w-auto flex items-center justify-center gap-3 bg-gray-400/10 border border-white/20 backdrop-blur-sm hover:shadow-[0_0_20px_rgba(255,255,255,0.02)] text-white px-8 py-4 rounded-full font-bold transition-all duration-300 hover:scale-105 active:scale-95 hover:border-white/40"
+                    class="w-full sm:w-auto flex items-center justify-center gap-3 bg-gray-400/10 border border-white/20 backdrop-blur-sm hover:shadow-[0_0_20px_rgba(255,255,255,0.02)] text-white px-8 py-3 rounded-full font-bold transition-all duration-300 hover:scale-105 active:scale-95 hover:border-white/40"
                 >
                     <Icon name="lucide:plus" class="size-6 fill-current" />
                     <span class="text-lg">My List</span>

@@ -1,4 +1,4 @@
-import type { TMDBResponse, Movie } from "../types/movie";
+import type { TMDBResponse, Movie, Genre, GenreResponse } from "../types/movie";
 
 const URL_BASE = 'https://api.themoviedb.org/3';
 const TOKEN = import.meta.env.TMDB_TOKEN;
@@ -27,11 +27,18 @@ export async function getHeroMovie() {
 
 // https://api.themoviedb.org/3/search/movie?query=fight&include_adult=false&language=en-US&page=1
 
-export async function getTrendingMovies() {
-  const url = `${URL_BASE}/trending/movie/day?language=${LANGUAGE}`;
+export async function getTrendingMovies(page: number = 1) {
+  const url = `${URL_BASE}/trending/movie/day?language=${LANGUAGE}&page=${page}`;
   const response = await fetch(url, OPTIONS);
   const data: TMDBResponse = await response.json();
-  return data.results; // devuelve un array de películas
+  return data.results;
+}
+
+export async function getDiscoverMovies(genreId: string, page: number = 1) {
+  const url = `${URL_BASE}/discover/movie?language=${LANGUAGE}&with_genres=${genreId}&page=${page}&sort_by=popularity.desc&include_adult=false`;
+  const response = await fetch(url, OPTIONS);
+  const data: TMDBResponse = await response.json();
+  return data.results;
 }
 
 export async function getMovieDetails(id: string) {
@@ -44,4 +51,19 @@ export async function getMovieDetails(id: string) {
 
   const data = await response.json();
   return data as Movie;
+}
+
+export async function getGenres() {
+
+  const url = `${URL_BASE}/genre/movie/list?language=${LANGUAGE}`;
+  const response = await fetch(url, OPTIONS);
+  const data: GenreResponse = await response.json();
+  return data.genres as Genre[];
+}
+
+export async function getNowPlayingMovies(page: number = 1) {
+  const url = `${URL_BASE}/movie/now_playing?language=${LANGUAGE}&page=${page}`;
+  const response = await fetch(url, OPTIONS);
+  const data: TMDBResponse = await response.json();
+  return data.results;
 }

@@ -4,6 +4,7 @@ import Hero from "../components/Hero.astro";
 import { getHeroMovie } from "../services/tmdb";
 
 import TrendingSection from "../components/movies/TrendingSection.astro";
+import PromoBanners from "../components/PromoBanners.astro";
 
 const movie = await getHeroMovie();
 
@@ -13,8 +14,9 @@ const movie = await getHeroMovie();
 <Layout title="Home">
 	<Hero movie={movie} />
 
-	<div class="relative bg-flow-bg">
+	<div class="relative bg-flow-bg pb-12">
 		<TrendingSection />
+		<PromoBanners />
 	</div>
 
 	<!-- Other content sections will go here -->

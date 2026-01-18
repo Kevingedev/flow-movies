@@ -13,4 +13,12 @@ export interface Movie {
 export interface TMDBResponse {
   results: Movie[];
 }
-  
+
+export interface Genre {
+  id: number;
+  name: string;
+}
+
+export interface GenreResponse {
+  genres: Genre[];
+}

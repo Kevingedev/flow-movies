@@ -21,8 +21,8 @@ const trendingMovies: Movie[] = await getTrendingMovies();
                 <div class="h-1 w-20 bg-flow-accent rounded-full mt-2"></div>
             </div>
             <a
-                href="#"
-                class="text-sm text-flow-sub hover:text-white transition-colors font-medium flex items-center gap-1 group"
+                href="/trending"
+                class="text-sm text-flow-sub hover:text-flow-accent hover:drop-shadow-[0_0_8px_rgba(220,38,38,0.4)] transition-colors font-medium hover:font-bold flex items-center gap-1 group"
             >
                 Ver todo
                 <svg
@@ -49,7 +49,7 @@ const trendingMovies: Movie[] = await getTrendingMovies();
       Using simple CSS scroll snap for a native app feel is often better than heavy JS libs for this.
     -->
         <div
-            class="flex gap-4 md:gap-6 overflow-x-auto overflow-y-hidden pb-4 no-scrollbar snap-x snap-mandatory scroll-smooth"
+            class="flex gap-4 py-2 md:gap-6 overflow-x-auto overflow-y-hidden pb-4 no-scrollbar snap-x snap-mandatory scroll-smooth"
         >
             {
                 trendingMovies
