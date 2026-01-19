@@ -1,7 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Hero from "../../components/Hero.astro";
-import { getMovieDetails } from "../../services/tmdb";
+import MovieProviders from "../../components/movies/MovieProviders.astro";
+import { getMovieDetails, getMovieProviders } from "../../services/tmdb";
+import { Icon } from "astro-icon/components";
 
 const { id } = Astro.params;
 
@@ -9,43 +11,185 @@ if (!id) {
     return Astro.redirect("/404");
 }
 
-let movie;
+let movie, providers;
 try {
-    movie = await getMovieDetails(id);
+    // Parallel fetch for valid ID
+    [movie, providers] = await Promise.all([
+        getMovieDetails(id),
+        getMovieProviders(id),
+    ]);
 } catch (error) {
-    // If movie not found, redirect to 404 or handle specific error
+    console.error("Error fetching movie details:", error);
     return Astro.redirect("/404");
 }
 
-// console.log(movie);
+// Format helpers
+const formatCurrency = (amount?: number) => {
+    if (!amount) return "N/A";
+    return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 0,
+    }).format(amount);
+};
+
+const formatRuntime = (minutes?: number) => {
+    if (!minutes) return "N/A";
+    const h = Math.floor(minutes / 60);
+    const m = minutes % 60;
+    return `${h}h ${m}m`;
+};
 ---
 
 <Layout title={movie.title}>
     <Hero movie={movie} />
 
-    <div class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-16 py-12 text-white">
-        <!-- Minimalist content for now -->
-        <h2 class="text-3xl font-bold mb-4">Overview</h2>
-        <p class="text-lg text-flow-sub leading-relaxed max-w-4xl">
-            {movie.overview}
-        </p>
+    <div class="relative z-10 bg-flow-bg">
+        <div
+            class="max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-16 py-12 md:py-16"
+        >
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
+                <!-- Main Content (Left Column) -->
+                <div class="lg:col-span-2 space-y-10">
+                    <!-- Synopsis -->
+                    <section
+                        class="animate-in fade-in slide-in-from-bottom-8 duration-700"
+                    >
+                        <h2
+                            class="text-2xl md:text-3xl font-bold text-white mb-4 flex items-center gap-3"
+                        >
+                            Synopsis
+                        </h2>
+                        <p
+                            class="text-lg text-gray-300 leading-relaxed text-pretty"
+                        >
+                            {movie.overview}
+                        </p>
+                    </section>
 
-        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-sm">
-            <div>
-                <span class="block text-flow-sub mb-1">Release Date</span>
-                <span class="font-semibold">{movie.release_date}</span>
+                    <!-- Genres -->
+                    {
+                        movie.genres && movie.genres.length > 0 && (
+                            <section class="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
+                                <h3 class="text-xl font-bold text-white mb-4">
+                                    Genres
+                                </h3>
+                                <div class="flex flex-wrap gap-3">
+                                    {movie.genres.map((g: any) => (
+                                        <a
+                                            href={`/trending?genre=${g.id}`}
+                                            class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-gray-300 hover:bg-white/10 hover:text-white hover:border-flow-accent transition-all duration-300"
+                                        >
+                                            {g.name}
+                                        </a>
+                                    ))}
+                                </div>
+                            </section>
+                        )
+                    }
+
+                    <!-- Stats Grid (Mobile/Tablet Friendly) -->
+                    <div
+                        class="grid grid-cols-2 md:grid-cols-4 gap-6 p-6 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-sm animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150"
+                    >
+                        <div>
+                            <span class="block text-sm text-gray-400 mb-1"
+                                >Rating</span
+                            >
+                            <div class="flex items-center gap-2">
+                                <Icon
+                                    name="lucide:star"
+                                    class="size-5 text-yellow-500 fill-current"
+                                />
+                                <span class="text-xl font-bold text-white"
+                                    >{movie.vote_average.toFixed(1)}</span
+                                >
+                            </div>
+                        </div>
+                        <div>
+                            <span class="block text-sm text-gray-400 mb-1"
+                                >Release Date</span
+                            >
+                            <span class="text-lg font-semibold text-white"
+                                >{movie.release_date}</span
+                            >
+                        </div>
+                        <div>
+                            <span class="block text-sm text-gray-400 mb-1"
+                                >Runtime</span
+                            >
+                            <span class="text-lg font-semibold text-white"
+                                >{formatRuntime(movie.runtime)}</span
+                            >
+                        </div>
+                        <div>
+                            <span class="block text-sm text-gray-400 mb-1"
+                                >Status</span
+                            >
+                            <span class="text-lg font-semibold text-white"
+                                >{movie.status || "Released"}</span
+                            >
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar (Right Column) -->
+                <div class="space-y-8">
+                    <!-- Where to Watch -->
+                    <MovieProviders providers={providers} country="ES" />
+
+                    <!-- Additional Info Card -->
+                    <div
+                        class="p-6 rounded-2xl bg-black/40 border border-white/5 space-y-6"
+                    >
+                        <h3 class="text-xl font-bold text-white">
+                            Information
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <span class="block text-sm text-gray-500"
+                                    >Original Title</span
+                                >
+                                <span class="text-white font-medium"
+                                    >{movie.original_title}</span
+                                >
+                            </div>
+                            <div>
+                                <span class="block text-sm text-gray-500"
+                                    >Original Language</span
+                                >
+                                <span class="text-white font-medium uppercase"
+                                    >{movie.original_language}</span
+                                >
+                            </div>
+                            {
+                                movie.budget > 0 && (
+                                    <div>
+                                        <span class="block text-sm text-gray-500">
+                                            Budget
+                                        </span>
+                                        <span class="text-white font-medium">
+                                            {formatCurrency(movie.budget)}
+                                        </span>
+                                    </div>
+                                )
+                            }
+                            {
+                                movie.revenue > 0 && (
+                                    <div>
+                                        <span class="block text-sm text-gray-500">
+                                            Revenue
+                                        </span>
+                                        <span class="text-white font-medium">
+                                            {formatCurrency(movie.revenue)}
+                                        </span>
+                                    </div>
+                                )
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-                <span class="block text-flow-sub mb-1">Rating</span>
-                <span class="font-semibold"
-                    >{movie.vote_average.toFixed(1)} / 10</span
-                >
-            </div>
-            <div>
-                <span class="block text-flow-sub mb-1">Votes</span>
-                <span class="font-semibold">{movie.vote_count}</span>
-            </div>
-            <!-- We can add genres here if we extend the type/service -->
         </div>
     </div>
 </Layout>

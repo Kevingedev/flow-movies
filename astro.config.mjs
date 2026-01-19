@@ -14,7 +14,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     server: {
-      allowedHosts: ["oil-nasa-hourly-amendment.trycloudflare.com"]
+      allowedHosts: ["significance-surprised-think-lightning.trycloudflare.com"]
     }
   },
 

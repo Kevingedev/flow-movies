@@ -67,3 +67,15 @@ export async function getNowPlayingMovies(page: number = 1) {
   const data: TMDBResponse = await response.json();
   return data.results;
 }
+
+export async function getMovieProviders(id: string) {
+  const url = `${URL_BASE}/movie/${id}/watch/providers`;
+  const response = await fetch(url, OPTIONS);
+
+  if (!response.ok) {
+    return null;
+  }
+
+  const data = await response.json();
+  return data.results;
+}
