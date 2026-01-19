@@ -13,7 +13,7 @@ const OPTIONS = {
 
 export async function getHeroMovie() {
 
-  const url = `${URL_BASE}/movie/upcoming?language=${LANGUAGE}&page=1&sort_by=vote_average.desc`;
+  const url = `${URL_BASE}/movie/popular?language=${LANGUAGE}&sort_by=vote_average.desc`;
 
   const response = await fetch(url, OPTIONS);
 

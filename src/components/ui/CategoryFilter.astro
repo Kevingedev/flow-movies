@@ -9,6 +9,7 @@ const { activeCategory } = Astro.props;
 
 const genres = await getGenres();
 
+
 const categories = [
     { id: "all", name: "All Trending", path: "/trending" },
     ...genres.map((genre) => ({

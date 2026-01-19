@@ -9,8 +9,9 @@ const movies = await getNowPlayingMovies();
 // console.log(movies);
 const promoMovies = movies
                     .sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime())
+                    .sort((a, b) => b.vote_average - a.vote_average)
                     .slice(0, 2);
-console.log(promoMovies);
+// console.log(promoMovies);
 const labels = ["NUEVO ESTRENO", "MÁS VISTO"];
 ---
 

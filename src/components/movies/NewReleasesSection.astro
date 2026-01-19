@@ -1,11 +1,9 @@
 ---
-import { getTrendingMovies } from "../../services/tmdb";
+import { getNowPlayingMovies } from "../../services/tmdb";
 import MovieCard from "./MovieCard.astro";
 import type { Movie } from "../../types/movie";
 
-const trendingMovies: Movie[] = await getTrendingMovies();
-
-// console.log(trendingMovies);
+const newReleases: Movie[] = await getNowPlayingMovies();
 ---
 
 <section class="w-full py-8 md:py-12 relative z-10">
@@ -16,12 +14,12 @@ const trendingMovies: Movie[] = await getTrendingMovies();
                 <h2
                     class="text-2xl md:text-3xl font-bold text-white tracking-tight"
                 >
-                    Trending Now
+                    Now Playing
                 </h2>
                 <div class="h-1 w-20 bg-flow-accent rounded-full mt-2"></div>
             </div>
-            <a
-                href="/trending"
+            <!-- <a
+                href="/now-playing"
                 class="text-sm text-flow-sub hover:text-flow-accent hover:drop-shadow-[0_0_8px_rgba(220,38,38,0.4)] transition-colors font-medium hover:font-bold flex items-center gap-1 group"
             >
                 Ver todo
@@ -38,23 +36,20 @@ const trendingMovies: Movie[] = await getTrendingMovies();
                         stroke-width="2"
                         d="M9 5l7 7-7 7"></path>
                 </svg>
-            </a>
+            </a> -->
         </div>
 
         <!-- Horizontal Scroll Container -->
-        <!-- 
-      Mobile: overflow-x-auto, no-scrollbar, gap-4
-      Desktop: flex-wrap or controlled grid, but prompted for swiper. 
-      The prompt requested "Horizontal Swiper" behavior.
-      Using simple CSS scroll snap for a native app feel is often better than heavy JS libs for this.
-    -->
         <div
             class="flex gap-4 py-2 md:gap-6 overflow-x-auto overflow-y-hidden pb-4 no-scrollbar snap-x snap-mandatory scroll-smooth"
         >
             {
-                trendingMovies
-                    .sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime())
-                    .sort((a, b) => b.vote_average - a.vote_average)
+                newReleases
+                    .sort(
+                        (a, b) =>
+                            new Date(b.release_date).getTime() -
+                            new Date(a.release_date).getTime(),
+                    )
                     .slice(0, 10)
                     .map((movie) => <MovieCard movie={movie} />)
             }
