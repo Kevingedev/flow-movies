@@ -113,6 +113,32 @@ export async function getDiscoverShows(genreId: string, page: number = 1) {
   return data;
 }
 
+export async function getTvShowDetails(id: string) {
+  const url = `${URL_BASE}/tv/${id}?language=${LANGUAGE}`;
+  const response = await fetch(url, OPTIONS);
+
+  if (!response.ok) {
+    throw new Error('TV show not found');
+  }
+
+  const data = await response.json();
+  return data as TVShow;
+}
+
+export async function getTvShowProviders(id: string) {
+  const url = `${URL_BASE}/tv/${id}/watch/providers`;
+  const response = await fetch(url, OPTIONS);
+
+  if (!response.ok) {
+    return null;
+  }
+
+  const data = await response.json();
+  return data.results;
+}
+
+
+
 
 
 

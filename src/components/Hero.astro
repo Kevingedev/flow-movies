@@ -2,28 +2,48 @@
 // src/components/Hero.astro
 import { Image } from "astro:assets";
 import type { Movie } from "../types/movie";
+import type { TVShow } from "../types/tvshow";
 import { Icon } from "astro-icon/components";
 
 interface Props {
-    movie: Movie;
+    movie?: Movie;
+    tvShow?: TVShow;
 }
+let isHome = true;
+const path = Astro.url.pathname;
 
-const { movie } = Astro.props;
+isHome = path.includes("/tvshow") || path.includes("/movie") ? false : true;
+
+const { movie, tvShow } = Astro.props;
 
 // 1. Tratamiento de Imagen y Calidad: 'original' para máxima nitidez en pantallas grandes
-const posterUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
+const posterUrl = `https://image.tmdb.org/t/p/original${movie?.backdrop_path || tvShow?.backdrop_path}`;
 ---
 
 <section
     class="relative w-full h-[70vh] md:min-h-[80vh] md:h-auto lg:h-[95vh] flex items-end overflow-hidden bg-flow-bg group"
 >
+    {
+        isHome == false && (
+            <a
+                href="/"
+                class="absolute top-30 left-10 z-50 p-2 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors group hover:drop-shadow-[0_0_10px_rgba(230,30,30,0.7)] hover:text-flow-accent"
+                aria-label="Go back"
+            >
+                <Icon
+                    name="lucide:chevron-left"
+                    class="size-6 group-hover:-translate-x-0.5 transition-transform"
+                />
+            </a>
+        )
+    }
     <!-- Background System -->
     <div class="absolute inset-0 z-0">
         <!-- The Image itself with Parallax & Object Fit Corrected -->
         <Image
             class="absolute inset-0 w-full h-full object-cover object-top scale-110 transition-transform duration-700 will-change-transform group-hover:scale-105"
             src={posterUrl}
-            alt={movie.title}
+            alt={movie?.title || tvShow?.name || "Content"}
             width={3840}
             height={2160}
             loading="eager"
@@ -61,7 +81,11 @@ const posterUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
                     ></span>
                     <span
                         class="text-xs md:text-sm font-bold tracking-widest uppercase text-white/90"
-                        >{movie.release_date}</span
+                        >{
+                            movie?.release_date ||
+                                tvShow?.first_air_date ||
+                                "Coming Soon"
+                        }</span
                     >
                 </div>
                 <!-- Rating with dynamic color based on score -->
@@ -73,7 +97,11 @@ const posterUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
                         class="size-4 fill-current text-yellow-400"
                     />
                     <span class="text-xs md:text-sm font-semibold text-white">
-                        {movie.vote_average?.toFixed(1) || "N/A"} Rating
+                        {
+                            movie
+                                ? movie?.vote_average?.toFixed(1)
+                                : tvShow?.vote_average?.toFixed(1)
+                        } Rating
                     </span>
                 </div>
             </div>
@@ -82,14 +110,20 @@ const posterUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
             <h1
                 class="text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-black font-montserrat tracking-tighter text-white leading-tight text-balance drop-shadow-2xl"
             >
-                {movie.title}
+                {movie?.title || tvShow?.name || "Untitled"}
             </h1>
 
             <!-- Description (Line Clamp for Mobile) -->
             <p
                 class="text-flow-sub text-sm sm:text-base md:text-lg lg:text-xl max-w-xl md:max-w-2xl leading-relaxed font-medium line-clamp-3 md:line-clamp-none text-pretty"
             >
-                {movie.overview.slice(0, 42)}...
+                {
+                    movie?.overview
+                        ? movie?.overview.slice(0, 42)
+                        : tvShow?.overview
+                          ? tvShow?.overview.slice(0, 42)
+                          : "No description available"
+                }...
             </p>
 
             <!-- CTA Buttons -->
@@ -98,9 +132,9 @@ const posterUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
             >
                 <!-- Watch Now Button -->
                 <button
-                    class="w-full sm:w-auto group relative flex items-center justify-center gap-3 
-                        bg-flow-accent text-white px-8 py-3 rounded-full font-bold transition-all 
-                        duration-300 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(220,38,38,0.4)] 
+                    class="w-full sm:w-auto group relative flex items-center justify-center gap-3
+                        bg-flow-accent text-white px-8 py-3 rounded-full font-bold transition-all
+                        duration-300 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(220,38,38,0.4)]
                         hover:shadow-[0_0_30px_rgba(220,38,38,0.6)]"
                 >
                     <Icon name="lucide:play" class="size-6 fill-current" />

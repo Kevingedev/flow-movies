@@ -5,7 +5,6 @@ export interface TVShow {
     overview: string;
     poster_path: string;
     backdrop_path: string;
-    genre_ids: number[];
     vote_average: number;
     vote_count: number;
     first_air_date: string;
@@ -13,6 +12,13 @@ export interface TVShow {
     original_language: string;
     original_name: string;
     popularity: number;
+    genre_ids?: number[];
+    genres?: GenreShows[];
+    runtime?: number;
+    tagline?: string;
+    status?: string;
+    budget?: number;
+    revenue?: number;
 }
 
 export interface TVShowResponse {
