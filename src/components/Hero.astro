@@ -10,9 +10,11 @@ interface Props {
     tvShow?: TVShow;
 }
 let isHome = true;
+let pathReturn = "";
 const path = Astro.url.pathname;
 
 isHome = path.includes("/tvshow") || path.includes("/movie") ? false : true;
+pathReturn = path.includes("/tvshow") ? "/tvshows" : path.includes("/movie") ? "/movies" : "";
 
 const { movie, tvShow } = Astro.props;
 
@@ -26,7 +28,7 @@ const posterUrl = `https://image.tmdb.org/t/p/original${movie?.backdrop_path || 
     {
         isHome == false && (
             <a
-                href="/"
+                href={pathReturn}
                 class="absolute top-30 left-10 z-50 p-2 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors group hover:drop-shadow-[0_0_10px_rgba(230,30,30,0.7)] hover:text-flow-accent"
                 aria-label="Go back"
             >

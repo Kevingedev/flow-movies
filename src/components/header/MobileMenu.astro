@@ -8,7 +8,7 @@ const navItems = [
         href: "/movies",
         active: currentPath.startsWith("/movies"),
     },
-    { name: "TV Shows", href: "/tv", active: currentPath.startsWith("/tv") },
+    { name: "TV Shows", href: "/tvshows", active: currentPath.startsWith("/tvshows") },
     { name: "My List", href: "/list", active: currentPath.startsWith("/list") },
 ];
 ---
@@ -53,9 +53,9 @@ const navItems = [
                             <a
                                 href={item.href}
                                 class:list={[
-                                    "text-4xl font-bold transition-all duration-300 block mobile-nav-link",
+                                    "text-2xl font-bold transition-all duration-300 block mobile-nav-link",
                                     item.active
-                                        ? "text-flow-accent translate-x-2"
+                                        ? "text-flow-accent translate-x-2 drop-shadow-[0_0_10px_rgba(220,38,38,0.3)]"
                                         : "text-flow-sub hover:text-white hover:translate-x-2",
                                 ]}
                             >
