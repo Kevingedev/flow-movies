@@ -78,7 +78,9 @@ const formatRuntime = (minutes?: number) => {
                                     {movie.genres.map((g: any) => (
                                         <a
                                             href={`/trending?genre=${g.id}`}
-                                            class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-gray-300 hover:bg-white/10 hover:text-white hover:border-flow-accent transition-all duration-300"
+                                            class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm 
+                                                font-medium text-gray-300 hover:bg-white/10 hover:text-white hover:border-flow-accent 
+                                                hover:drop-shadow-[0_0_15px_rgba(220,38,38,0.7)] transition-all duration-300"
                                         >
                                             {g.name}
                                         </a>
@@ -163,7 +165,7 @@ const formatRuntime = (minutes?: number) => {
                                 >
                             </div>
                             {
-                                movie.budget > 0 && (
+                                movie.budget && movie.budget > 0 && (
                                     <div>
                                         <span class="block text-sm text-gray-500">
                                             Budget
@@ -175,7 +177,7 @@ const formatRuntime = (minutes?: number) => {
                                 )
                             }
                             {
-                                movie.revenue > 0 && (
+                                movie.revenue && movie.revenue > 0 && (
                                     <div>
                                         <span class="block text-sm text-gray-500">
                                             Revenue

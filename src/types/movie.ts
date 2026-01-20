@@ -20,6 +20,7 @@ export interface Movie {
 
 export interface TMDBResponse {
   results: Movie[];
+  total_pages: number;
 }
 
 export interface Genre {
@@ -50,4 +51,10 @@ export interface WatchProvidersResponse {
   results: {
     [iso_3166_1: string]: WatchProviders;
   };
+}
+
+
+export interface TrendingMovies {
+  page: number;
+  
 }

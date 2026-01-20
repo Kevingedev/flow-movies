@@ -3,7 +3,8 @@ import { getTrendingMovies } from "../../services/tmdb";
 import MovieCard from "./MovieCard.astro";
 import type { Movie } from "../../types/movie";
 
-const trendingMovies: Movie[] = await getTrendingMovies();
+const movieResponse = await getTrendingMovies();
+const trendingMovies: Movie[] = movieResponse.results;
 
 // console.log(trendingMovies);
 ---
@@ -53,7 +54,11 @@ const trendingMovies: Movie[] = await getTrendingMovies();
         >
             {
                 trendingMovies
-                    .sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime())
+                    .sort(
+                        (a, b) =>
+                            new Date(b.release_date).getTime() -
+                            new Date(a.release_date).getTime(),
+                    )
                     .sort((a, b) => b.vote_average - a.vote_average)
                     .slice(0, 10)
                     .map((movie) => <MovieCard movie={movie} />)

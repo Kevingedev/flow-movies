@@ -3,7 +3,8 @@ import { getNowPlayingMovies } from "../../services/tmdb";
 import MovieCard from "./MovieCard.astro";
 import type { Movie } from "../../types/movie";
 
-const newReleases: Movie[] = await getNowPlayingMovies();
+const movieResponse = await getNowPlayingMovies();
+const newReleases: Movie[] = movieResponse.results;
 ---
 
 <section class="w-full py-8 md:py-12 relative z-10">

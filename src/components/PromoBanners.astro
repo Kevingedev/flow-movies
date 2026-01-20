@@ -3,7 +3,8 @@ import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import { getNowPlayingMovies } from "../services/tmdb";
 
-const movies = await getNowPlayingMovies();
+const movieResponse = await getNowPlayingMovies();
+const movies = movieResponse.results;
 // Take the first 2 movies, or specifically select impactful ones if needed.
 // For now, we take the top 2 from Now Playing.
 // console.log(movies);

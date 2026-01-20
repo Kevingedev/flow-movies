@@ -1,21 +1,26 @@
 ---
 interface Props {
     activeCategory?: string;
+    type: "movie" | "tv";
 }
 
-import { getGenres } from "../../services/tmdb";
+import { getGenres, getGenresShows } from "../../services/tmdb";
 
-const { activeCategory } = Astro.props;
+const { activeCategory, type } = Astro.props;
 
-const genres = await getGenres();
+const genres = type === "movie" ? await getGenres() : await getGenresShows();
+
+const path = Astro.url.pathname;
+
+// console.log(path);
 
 
 const categories = [
-    { id: "all", name: "All Trending", path: "/trending" },
+    { id: "all", name: "All", path: path },
     ...genres.map((genre) => ({
         id: genre.id.toString(),
         name: genre.name,
-        path: `/trending?genre=${genre.id}`,
+        path: `${path}?genre=${genre.id}`,
     })),
 ];
 

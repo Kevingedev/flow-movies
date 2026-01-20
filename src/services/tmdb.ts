@@ -1,4 +1,5 @@
 import type { TMDBResponse, Movie, Genre, GenreResponse } from "../types/movie";
+import type { GenreShows, GenreShowsResponse, TVShow, TVShowResponse } from "../types/tvshow";
 
 const URL_BASE = 'https://api.themoviedb.org/3';
 const TOKEN = import.meta.env.TMDB_TOKEN;
@@ -27,18 +28,25 @@ export async function getHeroMovie() {
 
 // https://api.themoviedb.org/3/search/movie?query=fight&include_adult=false&language=en-US&page=1
 
+export async function getAllMovies(page: number = 1) {
+  const url = `${URL_BASE}/discover/movie?language=${LANGUAGE}&page=${page}&sort_by=primary_release_date.desc&vote_average.gte=0.1&vote_count.gte=50`;
+  const response = await fetch(url, OPTIONS);
+  const data: TMDBResponse = await response.json();
+  return data;
+}
+
 export async function getTrendingMovies(page: number = 1) {
   const url = `${URL_BASE}/trending/movie/day?language=${LANGUAGE}&page=${page}`;
   const response = await fetch(url, OPTIONS);
   const data: TMDBResponse = await response.json();
-  return data.results;
+  return data;
 }
 
 export async function getDiscoverMovies(genreId: string, page: number = 1) {
-  const url = `${URL_BASE}/discover/movie?language=${LANGUAGE}&with_genres=${genreId}&page=${page}&sort_by=popularity.desc&include_adult=false`;
+  const url = `${URL_BASE}/discover/movie?language=${LANGUAGE}&with_genres=${genreId}&page=${page}&sort_by=popularity.desc&vote_average.gte=0.1`;
   const response = await fetch(url, OPTIONS);
   const data: TMDBResponse = await response.json();
-  return data.results;
+  return data;
 }
 
 export async function getMovieDetails(id: string) {
@@ -65,7 +73,7 @@ export async function getNowPlayingMovies(page: number = 1) {
   const url = `${URL_BASE}/movie/now_playing?language=${LANGUAGE}&page=${page}`;
   const response = await fetch(url, OPTIONS);
   const data: TMDBResponse = await response.json();
-  return data.results;
+  return data;
 }
 
 export async function getMovieProviders(id: string) {
@@ -79,3 +87,39 @@ export async function getMovieProviders(id: string) {
   const data = await response.json();
   return data.results;
 }
+
+export async function getGenresShows() {
+  const url = `${URL_BASE}/genre/tv/list?language=${LANGUAGE}`;
+  const response = await fetch(url, OPTIONS);
+  const data: GenreShowsResponse = await response.json();
+  return data.genres as GenreShows[];
+}
+
+
+// Traer las series
+export async function getTvShows(page: number = 1) {
+  const url = `${URL_BASE}/discover/tv?language=${LANGUAGE}&page=${page}&sort_by=primary_release_date.desc&vote_average.gte=0.1&vote_count.gte=50`;
+  const response = await fetch(url, OPTIONS);
+  const data: TVShowResponse = await response.json();
+  return data;
+  // data.results
+}
+
+export async function getDiscoverShows(genreId: string, page: number = 1) {
+
+  const url = `${URL_BASE}/discover/tv?language=${LANGUAGE}&with_genres=${genreId}&page=${page}&sort_by=popularity.desc&vote_average.gte=0.1`;
+  const response = await fetch(url, OPTIONS);
+  const data: TVShowResponse = await response.json();
+  return data;
+}
+
+
+
+
+
+
+
+
+
+
+
