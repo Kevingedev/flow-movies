@@ -1,0 +1,454 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Términos de Servicio">
+  <!-- Hero Section -->
+  <section
+    class="relative min-h-[40vh] flex items-center justify-center overflow-hidden"
+  >
+    <!-- Background Gradient -->
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-flow-accent/20 via-flow-bg to-flow-bg z-0"
+    >
+    </div>
+
+    <!-- Content -->
+    <div
+      class="relative z-10 text-center px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto"
+    >
+      <h1
+        class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight"
+      >
+        Términos de <span class="text-flow-accent">Servicio</span>
+      </h1>
+      <p
+        class="text-lg sm:text-xl text-flow-sub max-w-2xl mx-auto leading-relaxed"
+      >
+        Última actualización: {
+          new Date().toLocaleDateString("es-ES", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })
+        }
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="relative bg-flow-bg">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24">
+      <!-- Navigation Card -->
+      <nav
+        class="mb-12 p-6 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl"
+      >
+        <h2 class="text-lg font-semibold text-white mb-4">Contenido</h2>
+        <ul class="space-y-2 text-sm sm:text-base">
+          <li>
+            <a
+              href="#aceptacion"
+              class="text-flow-sub hover:text-white transition-colors duration-300"
+              >1. Aceptación de los Términos</a>
+          </li>
+          <li>
+            <a
+              href="#servicios"
+              class="text-flow-sub hover:text-white transition-colors duration-300"
+              >2. Descripción del Servicio</a>
+          </li>
+          <li>
+            <a
+              href="#responsabilidades"
+              class="text-flow-sub hover:text-white transition-colors duration-300"
+              >3. Responsabilidades del Usuario</a>
+          </li>
+          <li>
+            <a
+              href="#propiedad-intelectual"
+              class="text-flow-sub hover:text-white transition-colors duration-300"
+              >4. Propiedad Intelectual</a>
+          </li>
+          <li>
+            <a
+              href="#privacidad"
+              class="text-flow-sub hover:text-white transition-colors duration-300"
+              >5. Privacidad y Datos Personales</a>
+          </li>
+          <li>
+            <a
+              href="#limitacion"
+              class="text-flow-sub hover:text-white transition-colors duration-300"
+              >6. Limitación de Responsabilidad</a>
+          </li>
+          <li>
+            <a
+              href="#terminacion"
+              class="text-flow-sub hover:text-white transition-colors duration-300"
+              >7. Terminación del Servicio</a>
+          </li>
+          <li>
+            <a
+              href="#cambios"
+              class="text-flow-sub hover:text-white transition-colors duration-300"
+              >8. Cambios en los Términos</a>
+          </li>
+          <li>
+            <a
+              href="#contacto"
+              class="text-flow-sub hover:text-white transition-colors duration-300"
+              >9. Contacto</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Terms Content -->
+      <div class="space-y-12">
+        <!-- Section 1 -->
+        <section id="aceptacion" class="scroll-mt-8">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+            1. Aceptación de los Términos
+          </h2>
+          <div class="prose prose-invert max-w-none">
+            <p class="text-flow-sub leading-relaxed mb-4">
+              Al acceder y utilizar Flow Movies, usted acepta y se compromete a
+              cumplir con estos Términos de Servicio, nuestra Política de
+              Privacidad y todas las leyes y regulaciones aplicables. Si no está
+              de acuerdo con alguno de estos términos, no debe utilizar nuestro
+              servicio.
+            </p>
+            <p class="text-flow-sub leading-relaxed">
+              Estos términos constituyen un acuerdo legalmente vinculante entre
+              usted y Flow Movies. El uso de nuestro servicio está condicionado
+              a su aceptación sin modificación de todos los términos,
+              condiciones y políticas contenidos o referenciados herein.
+            </p>
+          </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section id="servicios" class="scroll-mt-8">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+            2. Descripción del Servicio
+          </h2>
+          <div class="prose prose-invert max-w-none">
+            <p class="text-flow-sub leading-relaxed mb-4">
+              Flow Movies es una plataforma de streaming que proporciona acceso
+              a contenido audiovisual incluyendo películas, series, documentales
+              y otros materiales multimedia. Nuestro servicio incluye:
+            </p>
+            <ul class="list-disc list-inside text-flow-sub space-y-2 ml-4">
+              <li>Acceso a nuestro catálogo de contenido bajo demanda</li>
+              <li>
+                Recomendaciones personalizadas basadas en sus preferencias
+              </li>
+              <li>Creación y gestión de listas de contenido personal</li>
+              <li>Acceso multiplataforma en dispositivos compatibles</li>
+              <li>Funciones de búsqueda y descubrimiento de contenido</li>
+            </ul>
+            <p class="text-flow-sub leading-relaxed mt-4">
+              Nos reservamos el derecho de modificar, suspender o discontinuar
+              cualquier parte del servicio en cualquier momento sin previo
+              aviso.
+            </p>
+          </div>
+        </section>
+
+        <!-- Section 3 -->
+        <section id="responsabilidades" class="scroll-mt-8">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+            3. Responsabilidades del Usuario
+          </h2>
+          <div class="prose prose-invert max-w-none">
+            <p class="text-flow-sub leading-relaxed mb-4">
+              Como usuario de Flow Movies, usted se compromete a:
+            </p>
+            <ul class="list-disc list-inside text-flow-sub space-y-2 ml-4">
+              <li>
+                Proporcionar información veraz y completa durante el registro
+              </li>
+              <li>
+                Mantener la confidencialidad de sus credenciales de acceso
+              </li>
+              <li>No compartir su cuenta con terceros no autorizados</li>
+              <li>
+                Utilizar el servicio únicamente para fines personales y no
+                comerciales
+              </li>
+              <li>
+                No intentar eludir ninguna medida de seguridad o restricción
+                técnica
+              </li>
+              <li>
+                No reproducir, distribuir o transmitir ilegalmente el contenido
+              </li>
+              <li>
+                Respetar los derechos de propiedad intelectual de terceros
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Section 4 -->
+        <section id="propiedad-intelectual" class="scroll-mt-8">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+            4. Propiedad Intelectual
+          </h2>
+          <div class="prose prose-invert max-w-none">
+            <p class="text-flow-sub leading-relaxed mb-4">
+              Todo el contenido disponible en Flow Movies, incluyendo但不限于
+              películas, series, imágenes, textos, gráficos, logotipos y
+              software, está protegido por leyes de propiedad intelectual y
+              pertenece a sus respectivos titulares o está licenciado para
+              nosotros.
+            </p>
+            <p class="text-flow-sub leading-relaxed mb-4">
+              Usted reconoce que no adquiere ningún derecho de propiedad sobre
+              el contenido al que accede a través de nuestro servicio. El uso
+              del contenido está limitado a fines personales y no comerciales de
+              acuerdo con estos términos.
+            </p>
+            <p class="text-flow-sub leading-relaxed">
+              Flow Movies y todos los logotipos, marcas y diseños relacionados
+              son marcas comerciales o marcas comerciales registradas de Flow
+              Movies o sus afiliados.
+            </p>
+          </div>
+        </section>
+
+        <!-- Section 5 -->
+        <section id="privacidad" class="scroll-mt-8">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+            5. Privacidad y Datos Personales
+          </h2>
+          <div class="prose prose-invert max-w-none">
+            <p class="text-flow-sub leading-relaxed mb-4">
+              Su privacidad es importante para nosotros. Nuestra Política de
+              Privacidad explica cómo recopilamos, usamos y protegemos su
+              información personal cuando utiliza nuestro servicio. Al usar Flow
+              Movies, usted consiente el procesamiento de sus datos según lo
+              descrito en nuestra Política de Privacidad.
+            </p>
+            <p class="text-flow-sub leading-relaxed">
+              Nos comprometemos a cumplir con todas las leyes aplicables de
+              protección de datos, incluyendo el Reglamento General de
+              Protección de Datos (RGPD) cuando corresponda.
+            </p>
+          </div>
+        </section>
+
+        <!-- Section 6 -->
+        <section id="limitacion" class="scroll-mt-8">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+            6. Limitación de Responsabilidad
+          </h2>
+          <div class="prose prose-invert max-w-none">
+            <p class="text-flow-sub leading-relaxed mb-4">
+              En la máxima medida permitida por la ley aplicable, Flow Movies no
+              será responsable por ningún daño indirecto, incidental, especial,
+              consecuente o punitivo, incluyendo但不限于 pérdida de beneficios,
+              datos, uso o cualquier otro daño intangible, resultante del uso o
+              la incapacidad de usar nuestro servicio.
+            </p>
+            <p class="text-flow-sub leading-relaxed">
+              Nuestra responsabilidad total ante usted por cualquier reclamo
+              relacionado con el servicio no excederá el monto que usted ha
+              pagado por el servicio en los doce (12) meses anteriores al
+              reclamo.
+            </p>
+          </div>
+        </section>
+
+        <!-- Section 7 -->
+        <section id="terminacion" class="scroll-mt-8">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+            7. Terminación del Servicio
+          </h2>
+          <div class="prose prose-invert max-w-none">
+            <p class="text-flow-sub leading-relaxed mb-4">
+              Podemos terminar o suspender su acceso a Flow Movies en cualquier
+              momento, con o sin causa, incluyendo但不限于 violaciones de estos
+              términos o actividad sospechosa.
+            </p>
+            <p class="text-flow-sub leading-relaxed mb-4">
+              Usted puede terminar su cuenta en cualquier momento a través de la
+              configuración de su perfil o contactándonos directamente. Tras la
+              terminación, su derecho a usar el servicio cesará inmediatamente.
+            </p>
+            <p class="text-flow-sub leading-relaxed">
+              Las disposiciones de estos términos que por su naturaleza deberían
+              sobrevivir a la terminación continuarán en vigor,
+              incluyendo但不限于 las cláusulas de propiedad intelectual,
+              limitación de responsabilidad y resolución de disputas.
+            </p>
+          </div>
+        </section>
+
+        <!-- Section 8 -->
+        <section id="cambios" class="scroll-mt-8">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+            8. Cambios en los Términos
+          </h2>
+          <div class="prose prose-invert max-w-none">
+            <p class="text-flow-sub leading-relaxed mb-4">
+              Nos reservamos el derecho de modificar estos términos en cualquier
+              momento. Cualquier cambio entrará en vigor cuando publiquemos los
+              términos revisados.
+            </p>
+            <p class="text-flow-sub leading-relaxed mb-4">
+              Le notificaremos cambios significativos mediante:
+            </p>
+            <ul class="list-disc list-inside text-flow-sub space-y-2 ml-4">
+              <li>Correo electrónico a la dirección registrada en su cuenta</li>
+              <li>Notificación dentro de la aplicación</li>
+              <li>Publicación destacada en nuestro sitio web</li>
+            </ul>
+            <p class="text-flow-sub leading-relaxed">
+              Su uso continuado del servicio después de dichos cambios
+              constituye su aceptación de los términos modificados.
+            </p>
+          </div>
+        </section>
+
+        <!-- Section 9 -->
+        <section id="contacto" class="scroll-mt-8">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+            9. Contacto
+          </h2>
+          <div class="prose prose-invert max-w-none">
+            <p class="text-flow-sub leading-relaxed mb-4">
+              Si tiene alguna pregunta sobre estos Términos de Servicio, puede
+              contactarnos a través de:
+            </p>
+            <div
+              class="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 space-y-3"
+            >
+              <p class="text-flow-sub">
+                <strong class="text-white">Correo electrónico:</strong> legal@flowmovies.com
+              </p>
+              <p class="text-flow-sub">
+                <strong class="text-white">Formulario de contacto:</strong>
+                <a
+                  href="/contacto"
+                  class="text-flow-accent hover:text-flow-accent/80 transition-colors"
+                  >flowmovies.com/contacto</a
+                >
+              </p>
+              <p class="text-flow-sub">
+                <strong class="text-white">Dirección postal:</strong> Flow Movies
+                Legal Dept, Calle del Streaming 123, 28001 Madrid, España
+              </p>
+            </div>
+            <p class="text-flow-sub leading-relaxed mt-4">
+              Nos esforzaremos por responder a su consulta dentro de un plazo
+              razonable, generalmente dentro de 5-7 días hábiles.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="mt-16 flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/privacy"
+          class="px-6 py-3 bg-white/10 hover:drop-shadow-[0_0_10px_rgba(230,230,230,0.2)] hover:translate-y-[-2px] backdrop-blur-md border border-white/20 rounded-full text-white hover:bg-white/20 transition-all duration-300 text-center font-medium"
+        >
+          Ver Política de Privacidad
+        </a>
+        <a
+          href="/"
+          class="px-6 py-3 bg-flow-accent hover:drop-shadow-[0_0_10px_rgba(230,30,30,0.2)] hover:translate-y-[-2px] text-white rounded-full hover:bg-red-600 transition-all duration-300 text-center font-medium shadow-lg shadow-flow-accent/25"
+        >
+          Volver al Inicio
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Back to Top Button -->
+  <button
+    id="back-to-top"
+    class="fixed bottom-8 right-8 w-12 h-12 bg-flow-accent text-white rounded-full shadow-lg shadow-flow-accent/25 backdrop-blur-md border border-white/10 opacity-0 invisible transition-all duration-300 hover:bg-red-600 hover:scale-110 z-40"
+    aria-label="Volver arriba"
+  >
+    <svg
+      class="w-6 h-6 mx-auto"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
+
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor: any) => {
+      anchor.addEventListener("click", function (e: any) {
+        e.preventDefault();
+        const target = document.querySelector(anchor.getAttribute("href"));
+        if (target) {
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      });
+    });
+
+    // Back to top button functionality
+    const backToTopButton = document.getElementById("back-to-top");
+
+    window.addEventListener("scroll", () => {
+      if (window.pageYOffset > 300) {
+        backToTopButton?.classList.remove("opacity-0", "invisible");
+        backToTopButton?.classList.add("opacity-100", "visible");
+      } else {
+        backToTopButton?.classList.add("opacity-0", "invisible");
+        backToTopButton?.classList.remove("opacity-100", "visible");
+      }
+    });
+
+    backToTopButton?.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+
+    // Add active state to navigation sections
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+    const observerOptions = {
+      rootMargin: "-20% 0px -70% 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach((link) => {
+            link.classList.remove("text-white");
+            link.classList.add("text-flow-sub");
+          });
+
+          const activeLink = document.querySelector(
+            `nav a[href="#${entry.target.id}"]`,
+          );
+          if (activeLink) {
+            activeLink.classList.remove("text-flow-sub");
+            activeLink.classList.add("text-white");
+          }
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
+  </script>
+</Layout>
