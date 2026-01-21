@@ -137,14 +137,26 @@ export async function getTvShowProviders(id: string) {
   return data.results;
 }
 
+export async function searchMulti(query: string, page: number = 1) {
+  const url = `${URL_BASE}/search/multi?language=${LANGUAGE}&query=${encodeURIComponent(query)}&page=${page}&include_adult=false`;
+  const response = await fetch(url, OPTIONS);
 
+  if (!response.ok) {
+    throw new Error('Search failed');
+  }
 
+  const data = await response.json();
 
+  // Filter only movies and tv shows, excluding persons or other types
+  const filteredResults = data.results.filter((item: any) =>
+    item.media_type === 'movie' || item.media_type === 'tv'
+  );
 
-
-
-
-
+  return {
+    ...data,
+    results: filteredResults
+  };
+}
 
 
 

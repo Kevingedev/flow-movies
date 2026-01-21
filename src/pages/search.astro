@@ -1,0 +1,149 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import type { Movie } from "../types/movie";
+import GridCard from "../components/ui/GridCard.astro";
+import { searchMulti } from "../services/tmdb";
+
+// Get query param
+const { searchParams } = Astro.url;
+const query = searchParams.get("q");
+const page = parseInt(searchParams.get("page") || "1");
+
+let results: any[] = [];
+let totalResults = 0;
+let totalPages = 1;
+
+if (query) {
+    try {
+        const response = await searchMulti(query, page);
+        // Sort by vote_average like in the search bar results
+        results = (response.results || []).sort(
+            (a: any, b: any) => (b.vote_average || 0) - (a.vote_average || 0),
+        );
+        totalResults = response.total_results;
+        totalPages = response.total_pages;
+    } catch (error) {
+        console.error("[SearchPage] Error searching:", error);
+    }
+}
+
+const getNextPageUrl = () => {
+    if (page >= totalPages) return null;
+    const params = new URLSearchParams(searchParams);
+    params.set("page", (page + 1).toString());
+    return `?${params.toString()}`;
+};
+
+const getPrevPageUrl = () => {
+    if (page <= 1) return null;
+    const params = new URLSearchParams(searchParams);
+    params.set("page", (page - 1).toString());
+    return `?${params.toString()}`;
+};
+---
+
+<Layout title={query ? `Search results for "${query}"` : "Search"}>
+    <div class="min-h-screen bg-black pt-28 pb-12 px-4 sm:px-6 lg:px-12">
+        <div class="max-w-[1920px] mx-auto">
+            <!-- Header -->
+            <header class="flex flex-col gap-4 mb-10">
+                <div class="flex items-center gap-4">
+                    <a
+                        href="/"
+                        class="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white hover:drop-shadow-[0_0_10px_rgba(230,30,30,0.7)] hover:text-flow-accent transition-colors group"
+                        aria-label="Go back"
+                    >
+                        <Icon
+                            name="lucide:chevron-left"
+                            class="size-6 group-hover:-translate-x-0.5 transition-transform"
+                        />
+                    </a>
+                    <h1
+                        class="text-3xl md:text-4xl font-bold text-white tracking-tight"
+                    >
+                        {query ? `Resultados para: "${query}"` : "Búsqueda"}
+                    </h1>
+                </div>
+                {
+                    query && (
+                        <p class="text-flow-sub text-sm ml-14">
+                            Se encontraron {totalResults} resultados
+                        </p>
+                    )
+                }
+            </header>
+
+            {
+                results.length > 0 ? (
+                    <>
+                        <div
+                            id="search-grid"
+                            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-8"
+                        >
+                            {results.map((item) => (
+                                <div class="col-span-1">
+                                    <GridCard item={item} />
+                                </div>
+                            ))}
+                        </div>
+
+                        {totalPages > 1 && (
+                            <div class="mt-12 flex justify-center items-center gap-4">
+                                {getPrevPageUrl() ? (
+                                    <a
+                                        href={getPrevPageUrl()}
+                                        class="px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 text-white font-medium transition-colors border border-white/10"
+                                    >
+                                        Anterior
+                                    </a>
+                                ) : (
+                                    <button
+                                        disabled
+                                        class="px-6 py-3 rounded-full bg-white/5 text-gray-500 font-medium border border-white/5 cursor-not-allowed"
+                                    >
+                                        Anterior
+                                    </button>
+                                )}
+
+                                <span class="text-sm text-gray-400">
+                                    Página {page} de {totalPages}
+                                </span>
+
+                                {getNextPageUrl() ? (
+                                    <a
+                                        href={getNextPageUrl()}
+                                        class="px-6 py-3 rounded-full bg-flow-accent hover:bg-red-700 text-white font-medium transition-colors shadow-lg shadow-red-900/20"
+                                    >
+                                        Siguiente
+                                    </a>
+                                ) : (
+                                    <button
+                                        disabled
+                                        class="px-6 py-3 rounded-full bg-white/5 text-gray-500 font-medium border border-white/5 cursor-not-allowed"
+                                    >
+                                        Siguiente
+                                    </button>
+                                )}
+                            </div>
+                        )}
+                    </>
+                ) : (
+                    <div class="flex flex-col items-center justify-center py-20 text-center">
+                        <Icon
+                            name="lucide:search-x"
+                            class="size-16 text-white/20 mb-4"
+                        />
+                        <h2 class="text-xl text-white font-medium mb-2">
+                            No se encontraron resultados
+                        </h2>
+                        <p class="text-flow-sub max-w-md mx-auto">
+                            No pudimos encontrar nada que coincida con tu
+                            búsqueda. Intenta con otros términos.
+                        </p>
+                    </div>
+                )
+            }
+        </div>
+    </div>
+</Layout>

@@ -1,0 +1,92 @@
+---
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+    item: any;
+    class?: string;
+}
+
+const { item, class: className } = Astro.props;
+
+// Detect media type
+const isMovie = item.media_type === "movie" || item.title !== undefined;
+const title = item.title || item.name || "Untitled";
+const date = item.release_date || item.first_air_date;
+const year = date ? new Date(date).getFullYear() : "N/A";
+const rating = item.vote_average ? item.vote_average.toFixed(1) : "0.0";
+const posterPath = item.poster_path;
+const posterUrl = posterPath
+    ? `https://image.tmdb.org/t/p/w500${posterPath}`
+    : null;
+const link = isMovie ? `/movie/${item.id}` : `/tvshow/${item.id}`;
+---
+
+<a
+    href={link}
+    aria-label={`Ver detalles de ${title}`}
+    class:list={[
+        "group relative block aspect-[2/3] rounded-2xl overflow-hidden cursor-pointer",
+        "transition-all duration-300 ease-out",
+        "hover:scale-105 hover:brightness-110",
+        "md:hover:border md:border-transparent md:hover:border-flow-accent/50",
+        "focus:outline-none focus:ring-2 focus:ring-flow-accent",
+        className,
+    ]}
+>
+    <!-- Background Image -->
+    <div
+        class="absolute inset-0 bg-gray-900 animate-pulse group-hover:animate-none"
+    >
+        {
+            posterUrl ? (
+                <Image
+                    src={posterUrl}
+                    alt={title}
+                    width={500}
+                    height={750}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                />
+            ) : (
+                <div class="w-full h-full flex items-center justify-center text-gray-500">
+                    <Icon name="lucide:image-off" class="size-10" />
+                </div>
+            )
+        }
+    </div>
+
+    <!-- Info Overlay -->
+    <div
+        class="absolute top-2 right-2 flex items-center gap-1.5 bg-black/40 backdrop-blur-md px-2 py-1 rounded-lg border border-white/10 z-10 transition-opacity duration-300"
+    >
+        <Icon name="lucide:star" class="size-3 text-yellow-500 fill-current" />
+        <span class="text-xs font-semibold text-white">{rating}</span>
+        <span
+            class="text-[10px] text-gray-300 ml-1 border-l border-white/20 pl-1"
+            >{year}</span
+        >
+    </div>
+
+    <!-- Dark Gradient -->
+    <div
+        class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+    >
+    </div>
+
+    <!-- Title and Content Type -->
+    <div class="absolute bottom-0 left-0 right-0 p-4">
+        <div class="flex flex-col gap-0.5">
+            <span
+                class="text-[10px] text-flow-accent font-bold uppercase tracking-wider"
+            >
+                {isMovie ? "Pelicula" : "Serie"}
+            </span>
+            <h3
+                class="text-white text-sm font-bold line-clamp-1 group-hover:text-flow-accent transition-colors"
+            >
+                {title}
+            </h3>
+        </div>
+    </div>
+</a>
