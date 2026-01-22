@@ -21,4 +21,10 @@ body {
         -ms-overflow-style: none;
         scrollbar-width: none;
     }
+    .grayscale {
+        filter: grayscale(1);
+    }
+    .grayscale-0 {
+        filter: grayscale(0);
+    }
 }

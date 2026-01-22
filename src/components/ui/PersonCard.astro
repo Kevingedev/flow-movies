@@ -1,0 +1,76 @@
+---
+import type { Person } from "../../types/person";
+
+interface Props {
+    person: Person;
+}
+
+const { person } = Astro.props;
+const PROFILE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+---
+
+<a
+    href={`/person/${person.id}`}
+    class="group relative flex flex-col items-center"
+>
+    <div
+        class="relative w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden bg-neutral-900 mb-5 shadow-2xl transition-all duration-700 ring-1 ring-white/10 group-hover:ring-flow-accent group-hover:shadow-[0_20px_50px_rgba(220,38,38,0.2)]"
+    >
+        {
+            person.profile_path ? (
+                <div class="w-full h-full overflow-hidden">
+                    <img
+                        src={`${PROFILE_BASE_URL}${person.profile_path}`}
+                        alt={person.name}
+                        class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 transform group-hover:scale-110"
+                        loading="lazy"
+                    />
+                </div>
+            ) : (
+                <div class="w-full h-full flex items-center justify-center bg-neutral-800 text-neutral-600">
+                    <svg
+                        class="w-16 h-16 opacity-20"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="1"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                        />
+                    </svg>
+                </div>
+            )
+        }
+
+        <!-- Hover Info -->
+        <div
+            class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black via-black/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500"
+        >
+            <span
+                class="text-[9px] font-black text-flow-accent uppercase tracking-[0.3em]"
+                >Trending</span
+            >
+        </div>
+    </div>
+
+    <div class="text-center px-4 w-full">
+        <h3
+            class="text-lg font-black text-white group-hover:text-flow-accent transition-colors duration-300 tracking-tight leading-tight mb-1"
+        >
+            {person.name}
+        </h3>
+        <p
+            class="text-[11px] font-bold text-neutral-500 uppercase tracking-widest truncate"
+        >
+            {
+                person.known_for
+                    .map((item) => ("title" in item ? item.title : item.name))
+                    .slice(0, 1)
+                    .join(", ")
+            }
+        </p>
+    </div>
+</a>

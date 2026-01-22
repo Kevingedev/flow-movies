@@ -1,0 +1,85 @@
+---
+import { Image } from "astro:assets";
+import type { Movie } from "../../types/movie";
+
+interface Props {
+  movies: Movie[];
+}
+
+const { movies } = Astro.props;
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w1280";
+
+const formatDate = (dateString: string) => {
+  if (!dateString) return "Próximamente";
+  return new Date(dateString).toLocaleDateString("es-ES", {
+    day: "numeric",
+    month: "long",
+  });
+};
+---
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 h-auto lg:h-[700px]">
+  <!-- Main Featured Movie -->
+  {movies[0] && (
+    <div class="lg:col-span-8 group relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-flow-accent/5 aspect-[4/5] lg:h-full border border-white/5">
+      <div class="absolute inset-0 bg-neutral-900 -z-10"></div>
+      <img 
+        src={`${IMAGE_BASE_URL}${movies[0].poster_path}`} 
+        alt={movies[0].title}
+        class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 group-hover:blur-[2px] opacity-80"
+      />
+      
+      <!-- Gradient Overlay -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent hidden lg:block"></div>
+
+      <!-- Content -->
+      <div class="absolute inset-0 p-8 sm:p-12 flex flex-col justify-end">
+        <div class="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="px-5 py-2 bg-flow-accent text-white text-xs font-black uppercase tracking-widest rounded-full shadow-[0_4px_20px_rgba(220,38,38,0.5)]">
+              ESTRENO: {formatDate(movies[0].release_date)}
+            </span>
+          </div>
+          
+          <h3 class="text-4xl sm:text-6xl font-black leading-none mb-6 tracking-tighter group-hover:text-flow-accent transition-colors">
+            {movies[0].title}
+          </h3>
+          
+          <p class="text-neutral-300 line-clamp-3 max-w-2xl text-base sm:text-lg leading-relaxed mb-8 opacity-0 group-hover:opacity-100 transition-all duration-500">
+            {movies[0].overview}
+          </p>
+
+          <a href={`/movie/${movies[0].id}`} class="inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-flow-accent hover:text-white transition-all duration-300 group/btn shadow-xl">
+            Ver detalles
+            <svg class="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  )}
+
+  <!-- Secondary Movies Column -->
+  <div class="lg:col-span-4 flex flex-col gap-8 h-full">
+    {movies.slice(1, 3).map((movie) => (
+      <a href={`/movie/${movie.id}`} class="group relative flex-1 rounded-[2rem] overflow-hidden border border-white/5 shadow-xl min-h-[250px]">
+        <img 
+          src={`${IMAGE_BASE_URL}${movie.backdrop_path}`} 
+          alt={movie.title}
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+        
+        <div class="absolute inset-0 p-8 flex flex-col justify-end">
+          <span class="inline-block self-start px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 text-white text-[10px] font-black uppercase tracking-widest rounded-full mb-3">
+             {formatDate(movie.release_date)}
+          </span>
+          <h3 class="text-xl sm:text-2xl font-bold group-hover:text-flow-accent transition-colors leading-tight">
+            {movie.title}
+          </h3>
+        </div>
+      </a>
+    ))}
+  </div>
+</div>

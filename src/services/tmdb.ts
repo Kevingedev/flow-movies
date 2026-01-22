@@ -1,5 +1,6 @@
 import type { TMDBResponse, Movie, Genre, GenreResponse } from "../types/movie";
 import type { GenreShows, GenreShowsResponse, TVShow, TVShowResponse } from "../types/tvshow";
+import type { PersonResponse } from "../types/person";
 
 const URL_BASE = 'https://api.themoviedb.org/3';
 const TOKEN = import.meta.env.TMDB_TOKEN;
@@ -161,3 +162,23 @@ export async function searchMulti(query: string, page: number = 1) {
 
 
 
+export async function getUpcomingMovies(page: number = 1) {
+  const url = `${URL_BASE}/movie/upcoming?language=${LANGUAGE}&page=${page}`;
+  const response = await fetch(url, OPTIONS);
+  const data: TMDBResponse = await response.json();
+  return data;
+}
+
+export async function getOnTheAirTV(page: number = 1) {
+  const url = `${URL_BASE}/tv/on_the_air?language=${LANGUAGE}&page=${page}`;
+  const response = await fetch(url, OPTIONS);
+  const data: TVShowResponse = await response.json();
+  return data;
+}
+
+export async function getPopularPeople(page: number = 1) {
+  const url = `${URL_BASE}/person/popular?language=${LANGUAGE}&page=${page}`;
+  const response = await fetch(url, OPTIONS);
+  const data: PersonResponse = await response.json();
+  return data;
+}

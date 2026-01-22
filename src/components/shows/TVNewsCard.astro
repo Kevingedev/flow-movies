@@ -1,0 +1,83 @@
+---
+import type { TVShow } from "../../types/tvshow";
+
+interface Props {
+    show: TVShow;
+}
+
+const { show } = Astro.props;
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w780";
+---
+
+<a
+    href={`/tv/${show.id}`}
+    class="group relative shrink-0 w-[300px] sm:w-[400px] snap-center"
+>
+    <div
+        class="relative aspect-video rounded-3xl overflow-hidden border border-white/10 bg-neutral-900 shadow-2xl transition-all duration-500 group-hover:-translate-y-2 group-hover:shadow-flow-accent/20"
+    >
+        <!-- Image -->
+        {
+            show.backdrop_path ? (
+                <img
+                    src={`${IMAGE_BASE_URL}${show.backdrop_path}`}
+                    alt={show.name}
+                    class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
+                    loading="lazy"
+                />
+            ) : (
+                <div class="w-full h-full flex items-center justify-center bg-neutral-800 text-neutral-600 font-bold uppercase tracking-widest text-xs italic">
+                    No Preview Available
+                </div>
+            )
+        }
+
+        <!-- Status Badge -->
+        <div
+            class="absolute top-4 right-4 flex items-center gap-2.5 bg-black/60 backdrop-blur-xl px-4 py-2 rounded-2xl border border-white/10 shadow-xl"
+        >
+            <div
+                class="w-2 h-2 rounded-full bg-flow-accent animate-pulse shadow-[0_0_8px_#DC2626]"
+            >
+            </div>
+            <span
+                class="text-[10px] font-black uppercase text-white tracking-[0.15em]"
+                >Nuevo Episodio</span
+            >
+        </div>
+
+        <!-- Content Overlay -->
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"
+        >
+        </div>
+
+        <div class="absolute bottom-0 left-0 p-6 w-full">
+            <h3
+                class="text-xl font-black text-white leading-none mb-2 group-hover:text-flow-accent transition-colors truncate tracking-tight"
+            >
+                {show.name}
+            </h3>
+            <div
+                class="flex items-center gap-4 text-[11px] font-bold text-neutral-400 uppercase tracking-widest"
+            >
+                <div
+                    class="flex items-center gap-1.5 text-yellow-500 bg-yellow-500/10 px-2 py-0.5 rounded-lg border border-yellow-500/20"
+                >
+                    <svg
+                        class="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                    >
+                        <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                        ></path>
+                    </svg>
+                    <span>{show.vote_average.toFixed(1)}</span>
+                </div>
+                <span class="w-1 h-1 bg-neutral-600 rounded-full"></span>
+                <span>{show.original_language.toUpperCase()}</span>
+            </div>
+        </div>
+    </div>
+</a>

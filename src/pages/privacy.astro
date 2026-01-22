@@ -1,0 +1,573 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Política de Privacidad">
+	<!-- Hero Section -->
+	<section
+		class="relative min-h-[40vh] flex items-center justify-center overflow-hidden"
+	>
+		<!-- Background Gradient -->
+		<div
+			class="absolute inset-0 bg-gradient-to-br from-flow-accent/20 via-flow-bg to-flow-bg z-0"
+		>
+		</div>
+
+		<!-- Content -->
+		<div
+			class="relative z-10 text-center px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto"
+		>
+			<h1
+				class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight"
+			>
+				Política de <span class="text-flow-accent">Privacidad</span>
+			</h1>
+			<p
+				class="text-lg sm:text-xl text-flow-sub max-w-2xl mx-auto leading-relaxed"
+			>
+				Última actualización: {
+					new Date().toLocaleDateString("es-ES", {
+						year: "numeric",
+						month: "long",
+						day: "numeric",
+					})
+				}
+			</p>
+		</div>
+	</section>
+
+	<!-- Main Content -->
+	<main class="relative bg-flow-bg">
+		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24">
+			<!-- Navigation Card -->
+			<nav
+				class="mb-12 p-6 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl"
+			>
+				<h2 class="text-lg font-semibold text-white mb-4">Contenido</h2>
+				<ul class="space-y-2 text-sm sm:text-base">
+					<li>
+						<a
+							href="#introduccion"
+							class="text-flow-sub hover:text-white transition-colors duration-300"
+							>1. Introducción</a
+						>
+					</li>
+					<li>
+						<a
+							href="#recopilacion"
+							class="text-flow-sub hover:text-white transition-colors duration-300"
+							>2. Información que Recopilamos</a
+						>
+					</li>
+					<li>
+						<a
+							href="#uso"
+							class="text-flow-sub hover:text-white transition-colors duration-300"
+							>3. Cómo Utilizamos tu Información</a
+						>
+					</li>
+					<li>
+						<a
+							href="#proteccion"
+							class="text-flow-sub hover:text-white transition-colors duration-300"
+							>4. Protección de Datos</a
+						>
+					</li>
+					<li>
+						<a
+							href="#terceros"
+							class="text-flow-sub hover:text-white transition-colors duration-300"
+							>5. Terceros y Compartir Datos</a
+						>
+					</li>
+					<li>
+						<a
+							href="#derechos"
+							class="text-flow-sub hover:text-white transition-colors duration-300"
+							>6. Tus Derechos</a
+						>
+					</li>
+					<li>
+						<a
+							href="#cookies"
+							class="text-flow-sub hover:text-white transition-colors duration-300"
+							>7. Cookies y Tecnologías Similares</a
+						>
+					</li>
+					<li>
+						<a
+							href="#infantil"
+							class="text-flow-sub hover:text-white transition-colors duration-300"
+							>8. Privacidad Infantil</a
+						>
+					</li>
+					<li>
+						<a
+							href="#cambios"
+							class="text-flow-sub hover:text-white transition-colors duration-300"
+							>9. Cambios en esta Política</a
+						>
+					</li>
+					<li>
+						<a
+							href="#contacto"
+							class="text-flow-sub hover:text-white transition-colors duration-300"
+							>10. Contacto</a
+						>
+					</li>
+				</ul>
+			</nav>
+
+			<!-- Privacy Content -->
+			<div class="space-y-12">
+				<!-- Section 1 -->
+				<section id="introduccion" class="scroll-mt-8">
+					<h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+						1. Introducción
+					</h2>
+					<div class="prose prose-invert max-w-none">
+						<p class="text-flow-sub leading-relaxed mb-4">
+							En Flow Movies, nos comprometemos a proteger y
+							respetar tu privacidad. Esta política de privacidad
+							explica cómo recopilamos, utilizamos y protegemos tu
+							información personal cuando utilizas nuestra
+							plataforma de streaming de películas.
+						</p>
+						<p class="text-flow-sub leading-relaxed">
+							Al utilizar Flow Movies, aceptas las prácticas
+							descritas en esta política. Nuestro objetivo es ser
+							transparentes sobre cómo manejamos tus datos y darte
+							control sobre tu información.
+						</p>
+					</div>
+				</section>
+
+				<!-- Section 2 -->
+				<section id="recopilacion" class="scroll-mt-8">
+					<h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+						2. Información que Recopilamos
+					</h2>
+					<div class="prose prose-invert max-w-none space-y-6">
+						<div>
+							<h3 class="text-xl font-semibold text-white mb-3">
+								Información de Cuenta
+							</h3>
+							<ul
+								class="list-disc list-inside text-flow-sub space-y-2 ml-4"
+							>
+								<li>
+									Nombre de usuario y dirección de correo
+									electrónico
+								</li>
+								<li>Contraseña encriptada</li>
+								<li>
+									Preferencias de idioma y configuraciones
+									regionales
+								</li>
+								<li>Historial de visualización y favoritos</li>
+							</ul>
+						</div>
+						<div>
+							<h3 class="text-xl font-semibold text-white mb-3">
+								Datos de Uso
+							</h3>
+							<ul
+								class="list-disc list-inside text-flow-sub space-y-2 ml-4"
+							>
+								<li>Películas y series que has visto</li>
+								<li>Tiempo de visualización y progreso</li>
+								<li>Búsquedas realizadas en la plataforma</li>
+								<li>
+									Interacciones con contenido (me gusta,
+									favoritos)
+								</li>
+							</ul>
+						</div>
+						<div>
+							<h3 class="text-xl font-semibold text-white mb-3">
+								Información Técnica
+							</h3>
+							<ul
+								class="list-disc list-inside text-flow-sub space-y-2 ml-4"
+							>
+								<li>Dirección IP y tipo de dispositivo</li>
+								<li>Navegador web y sistema operativo</li>
+								<li>
+									ID único de dispositivo para autenticación
+								</li>
+								<li>
+									Datos de rendimiento y errores de la
+									aplicación
+								</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+
+				<!-- Section 3 -->
+				<section id="uso" class="scroll-mt-8">
+					<h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+						3. Cómo Utilizamos tu Información
+					</h2>
+					<div class="prose prose-invert max-w-none">
+						<p class="text-flow-sub leading-relaxed mb-4">
+							Utilizamos tu información personal para los
+							siguientes propósitos:
+						</p>
+						<ul
+							class="list-disc list-inside text-flow-sub space-y-3 ml-4"
+						>
+							<li>
+								<strong class="text-white"
+									>Proveer y mantener el servicio:</strong
+								> Para ofrecer acceso a nuestro catálogo de películas
+								y series.
+							</li>
+							<li>
+								<strong class="text-white"
+									>Personalizar la experiencia:</strong
+								> Para recomendar contenido basado en tus preferencias
+								e historial de visualización.
+							</li>
+							<li>
+								<strong class="text-white"
+									>Mejorar nuestros servicios:</strong
+								> Para analizar patrones de uso y optimizar la plataforma.
+							</li>
+							<li>
+								<strong class="text-white">Comunicación:</strong
+								> Para enviarte notificaciones sobre actualizaciones,
+								nuevas funciones y contenido relevante.
+							</li>
+							<li>
+								<strong class="text-white">Seguridad:</strong> Para
+								proteger tu cuenta y prevenir actividades fraudulentas.
+							</li>
+						</ul>
+					</div>
+				</section>
+
+				<!-- Section 4 -->
+				<section id="proteccion" class="scroll-mt-8">
+					<h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+						4. Protección de Datos
+					</h2>
+					<div class="prose prose-invert max-w-none">
+						<p class="text-flow-sub leading-relaxed mb-4">
+							Implementamos medidas de seguridad técnicas y
+							organizativas apropiadas para proteger tu
+							información personal contra acceso no autorizado,
+							alteración, divulgación o destrucción.
+						</p>
+						<p class="text-flow-sub leading-relaxed mb-4">
+							Todas las contraseñas se almacenan utilizando
+							encriptación de un solo sentido (hashing). Las
+							comunicaciones entre tu dispositivo y nuestros
+							servidores se realizan mediante protocolos seguros
+							(HTTPS/TLS).
+						</p>
+						<p class="text-flow-sub leading-relaxed">
+							Limitamos el acceso a tu información personal solo a
+							empleados que necesitan conocerla para proporcionar
+							nuestros servicios o cumplir con requisitos legales.
+						</p>
+					</div>
+				</section>
+
+				<!-- Section 5 -->
+				<section id="terceros" class="scroll-mt-8">
+					<h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+						5. Terceros y Compartir Datos
+					</h2>
+					<div class="prose prose-invert max-w-none">
+						<p class="text-flow-sub leading-relaxed mb-4">
+							No vendemos, alquilamos ni comercializamos tu
+							información personal. Solo compartimos tus datos en
+							las siguientes circunstancias:
+						</p>
+						<ul
+							class="list-disc list-inside text-flow-sub space-y-3 ml-4"
+						>
+							<li>
+								<strong class="text-white"
+									>Proveedores de servicios:</strong
+								> Con empresas que nos ayudan a operar nuestra plataforma
+								(servicios de hosting, análisis, etc.)
+							</li>
+							<li>
+								<strong class="text-white"
+									>Requisitos legales:</strong
+								> Cuando la ley nos obliga a divulgar información.
+							</li>
+							<li>
+								<strong class="text-white"
+									>Transferencia de negocio:</strong
+								> En caso de fusión, adquisición o venta de activos.
+							</li>
+						</ul>
+					</div>
+				</section>
+
+				<!-- Section 6 -->
+				<section id="derechos" class="scroll-mt-8">
+					<h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+						6. Tus Derechos
+					</h2>
+					<div class="prose prose-invert max-w-none">
+						<p class="text-flow-sub leading-relaxed mb-4">
+							Tienes derecho a:
+						</p>
+						<ul
+							class="list-disc list-inside text-flow-sub space-y-3 ml-4"
+						>
+							<li>
+								<strong class="text-white">Acceder:</strong> Solicitar
+								una copia de tu información personal.
+							</li>
+							<li>
+								<strong class="text-white">Corregir:</strong> Actualizar
+								o corregir información inexacta.
+							</li>
+							<li>
+								<strong class="text-white">Eliminar:</strong> Solicitar
+								la eliminación de tu cuenta y datos personales.
+							</li>
+							<li>
+								<strong class="text-white">Portabilidad:</strong
+								> Recibir tus datos en un formato estructurado.
+							</li>
+							<li>
+								<strong class="text-white">Oponerse:</strong> Oponerte
+								al procesamiento de tus datos en ciertas circunstancias.
+							</li>
+						</ul>
+						<p class="text-flow-sub leading-relaxed mt-4">
+							Para ejercer estos derechos, contacta con nuestro
+							equipo de soporte a través de la sección de ayuda en
+							la aplicación o por correo electrónico.
+						</p>
+					</div>
+				</section>
+
+				<!-- Section 7 -->
+				<section id="cookies" class="scroll-mt-8">
+					<h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+						7. Cookies y Tecnologías Similares
+					</h2>
+					<div class="prose prose-invert max-w-none">
+						<p class="text-flow-sub leading-relaxed mb-4">
+							Utilizamos cookies y tecnologías similares para
+							mejorar tu experiencia en Flow Movies:
+						</p>
+						<ul
+							class="list-disc list-inside text-flow-sub space-y-3 ml-4"
+						>
+							<li>
+								<strong class="text-white"
+									>Cookies esenciales:</strong
+								> Necesarias para el funcionamiento básico del sitio.
+							</li>
+							<li>
+								<strong class="text-white"
+									>Cookies de rendimiento:</strong
+								> Para analizar cómo utilizas nuestra plataforma.
+							</li>
+							<li>
+								<strong class="text-white"
+									>Cookies de funcionalidad:</strong
+								> Para recordar tus preferencias y configuraciones.
+							</li>
+						</ul>
+						<p class="text-flow-sub leading-relaxed mt-4">
+							Puedes gestionar las cookies a través de la
+							configuración de tu navegador. Ten en cuenta que
+							desactivar ciertas cookies puede afectar el
+							funcionamiento de la plataforma.
+						</p>
+					</div>
+				</section>
+
+				<!-- Section 8 -->
+				<section id="infantil" class="scroll-mt-8">
+					<h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+						8. Privacidad Infantil
+					</h2>
+					<div class="prose prose-invert max-w-none">
+						<p class="text-flow-sub leading-relaxed mb-4">
+							Flow Movies no está dirigido a menores de 13 años.
+							No recopilamos intencionadamente información
+							personal de niños. Si descubrimos que hemos
+							recopilado información de un menor, tomaremos
+							medidas para eliminarla rápidamente.
+						</p>
+						<p class="text-flow-sub leading-relaxed">
+							Si eres padre/tutor y crees que tu hijo nos ha
+							proporcionado información personal, por favor
+							contáctanos de inmediato.
+						</p>
+					</div>
+				</section>
+
+				<!-- Section 9 -->
+				<section id="cambios" class="scroll-mt-8">
+					<h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+						9. Cambios en esta Política
+					</h2>
+					<div class="prose prose-invert max-w-none">
+						<p class="text-flow-sub leading-relaxed mb-4">
+							Podemos actualizar esta política de privacidad
+							periódicamente para reflejar cambios en nuestras
+							prácticas o por razones operativas, legales o
+							regulatorias.
+						</p>
+						<p class="text-flow-sub leading-relaxed">
+							Cualquier cambio significativo será notificado a los
+							usuarios a través de la plataforma o por correo
+							electrónico. La fecha de "Última actualización" al
+							principio de esta política indica cuándo fue
+							revisada por última vez.
+						</p>
+					</div>
+				</section>
+
+				<!-- Section 10 -->
+				<section id="contacto" class="scroll-mt-8">
+					<h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+						10. Contacto
+					</h2>
+					<div class="prose prose-invert max-w-none">
+						<p class="text-flow-sub leading-relaxed mb-4">
+							Si tienes preguntas o preocupaciones sobre esta
+							política de privacidad o sobre cómo manejamos tu
+							información, por favor contáctanos:
+						</p>
+						<div
+							class="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6 space-y-3"
+						>
+							<p class="text-flow-sub">
+								<strong class="text-white"
+									>Correo electrónico:</strong
+								> privacy@flowmovies.com
+							</p>
+							<p class="text-flow-sub">
+								<strong class="text-white">Soporte:</strong> Disponible
+								a través de la sección de ayuda en la aplicación
+							</p>
+							<p class="text-flow-sub">
+								<strong class="text-white"
+									>Tiempo de respuesta:</strong
+								> Nos comprometemos a responder dentro de 48 horas
+								hábiles
+							</p>
+						</div>
+					</div>
+				</section>
+			</div>
+
+			<!-- Action Buttons -->
+			<div class="mt-16 flex flex-col sm:flex-row gap-4 justify-center">
+				<a
+					href="/terms"
+					class="px-6 py-3 bg-white/10 hover:drop-shadow-[0_0_10px_rgba(230,230,230,0.2)] hover:translate-y-[-2px] backdrop-blur-md border border-white/20 rounded-full text-white hover:bg-white/20 transition-all duration-300 text-center font-medium"
+				>
+					Ver Términos de Servicio
+				</a>
+				<a
+					href="/"
+					class="px-6 py-3 bg-flow-accent hover:drop-shadow-[0_0_10px_rgba(230,30,30,0.2)] hover:translate-y-[-2px] text-white rounded-full hover:bg-red-600 transition-all duration-300 text-center font-medium shadow-lg shadow-flow-accent/25"
+				>
+					Volver al Inicio
+				</a>
+			</div>
+		</div>
+	</main>
+
+	<!-- Back to Top Button -->
+	<button
+		id="back-to-top"
+		class="fixed bottom-8 right-8 w-12 h-12 bg-flow-accent text-white rounded-full shadow-lg shadow-flow-accent/25 backdrop-blur-md border border-white/10 opacity-0 invisible transition-all duration-300 hover:bg-red-600 hover:scale-110 z-40"
+		aria-label="Volver arriba"
+	>
+		<svg
+			class="w-6 h-6 mx-auto"
+			fill="none"
+			stroke="currentColor"
+			viewBox="0 0 24 24"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="2"
+				d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+		</svg>
+	</button>
+
+	<script>
+		// Smooth scrolling for navigation links
+		document.querySelectorAll('a[href^="#"]').forEach((anchor: any) => {
+			anchor.addEventListener("click", function (e: any) {
+				e.preventDefault();
+				const target = document.querySelector(
+					anchor.getAttribute("href"),
+				);
+				if (target) {
+					target.scrollIntoView({
+						behavior: "smooth",
+						block: "start",
+					});
+				}
+			});
+		});
+
+		// Back to top button functionality
+		const backToTopButton = document.getElementById("back-to-top");
+
+		window.addEventListener("scroll", () => {
+			if (window.pageYOffset > 300) {
+				backToTopButton?.classList.remove("opacity-0", "invisible");
+				backToTopButton?.classList.add("opacity-100", "visible");
+			} else {
+				backToTopButton?.classList.add("opacity-0", "invisible");
+				backToTopButton?.classList.remove("opacity-100", "visible");
+			}
+		});
+
+		backToTopButton?.addEventListener("click", () => {
+			window.scrollTo({
+				top: 0,
+				behavior: "smooth",
+			});
+		});
+
+		// Add active state to navigation sections
+		const sections = document.querySelectorAll("section[id]");
+		const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+		const observerOptions = {
+			rootMargin: "-20% 0px -70% 0px",
+		};
+
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					navLinks.forEach((link) => {
+						link.classList.remove("text-white");
+						link.classList.add("text-flow-sub");
+					});
+
+					const activeLink = document.querySelector(
+						`nav a[href="#${entry.target.id}"]`,
+					);
+					if (activeLink) {
+						activeLink.classList.remove("text-flow-sub");
+						activeLink.classList.add("text-white");
+					}
+				}
+			});
+		}, observerOptions);
+
+		sections.forEach((section) => {
+			observer.observe(section);
+		});
+	</script>
+</Layout>
