@@ -1,0 +1,361 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+
+const categories = [
+    {
+        name: "Cuenta",
+        icon: "lucide:user",
+        description:
+            "Gestiona tu suscripción, perfiles y preferencias de usuario.",
+        color: "from-red-500/20",
+    },
+    {
+        name: "Facturación",
+        icon: "lucide:credit-card",
+        description: "Pagos, facturas, métodos de pago y ciclos de cobro.",
+        color: "from-blue-500/20",
+    },
+    {
+        name: "Dispositivos",
+        icon: "lucide:monitor-smartphone",
+        description:
+            "Configura Flow Movies en TV, móviles, tablets y consolas.",
+        color: "from-purple-500/20",
+    },
+    {
+        name: "Reproducción",
+        icon: "lucide:play-circle",
+        description:
+            "Resolución de problemas de video, audio y calidad de streaming.",
+        color: "from-orange-500/20",
+    },
+    {
+        name: "Privacidad",
+        icon: "lucide:lock",
+        description: "Controla tus datos, seguridad de la cuenta y privacidad.",
+        color: "from-emerald-500/20",
+    },
+    {
+        name: "Contacto",
+        icon: "lucide:message-circle",
+        description: "Soporte directo, sugerencias y consultas comerciales.",
+        color: "from-pink-500/20",
+    },
+];
+
+const faqs = [
+    {
+        question: "¿Cómo puedo cancelar mi suscripción?",
+        answer: "Puedes cancelar tu suscripción en cualquier momento desde la sección 'Ajustes de Cuenta'. Una vez confirmada la cancelación, seguirás teniendo acceso al servicio hasta que finalice tu periodo de facturación actual. No hay cargos por cancelación.",
+    },
+    {
+        question: "¿En cuántos dispositivos puedo ver contenido?",
+        answer: "El número de dispositivos simultáneos depende de tu plan de suscripción. El plan Premium permite hasta 4 pantallas en simultáneo en resolución 4K HDR. Puedes gestionar tus dispositivos vinculados desde el panel de control.",
+    },
+    {
+        question: "¿Cómo cambio la calidad del vídeo?",
+        answer: "Flow Movies ajusta automáticamente la calidad según tu conexión a internet. Sin embargo, puedes forzar una calidad específica (Ahorro de datos, Estándar o Máxima) desde el menú de ajustes durante la reproducción.",
+    },
+    {
+        question: "¿Puedo descargar contenido para verlo sin conexión?",
+        answer: "¡Sí! La mayoría de nuestros títulos están disponibles para descarga en dispositivos móviles y tablets. Busca el icono de descarga junto al título del contenido. Las descargas caducan a los 30 días o 48 horas tras iniciar la reproducción.",
+    },
+    {
+        question: "¿Cómo recupero mi contraseña?",
+        answer: "Si has olvidado tu contraseña, haz clic en '¿Olvidaste tu contraseña?' en la pantalla de inicio de sesión. Te enviaremos un enlace de recuperación a tu correo electrónico registrado. Por seguridad, el enlace caduca en una hora.",
+    },
+];
+---
+
+<Layout title="Centro de Ayuda">
+    <div class="relative min-h-screen bg-flow-bg overflow-hidden pb-32">
+        <!-- --- BACKGROUND EFFECTS --- -->
+        <!-- Noise Texture Overlay -->
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none z-50 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+        
+        <!-- Animated Blobs -->
+        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-flow-accent/10 blur-[120px] rounded-full animate-pulse-slow -z-10"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-flow-accent/5 blur-[100px] rounded-full animate-float -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 space-y-32 mt-20 relative z-10">
+            <!-- 1. Buscador Central (Hero) -->
+            <section class="max-w-5xl mx-auto text-center space-y-12 py-20 relative">
+                <div class="space-y-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-flow-accent text-xs font-bold uppercase tracking-widest animate-fade-in">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-flow-accent opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-flow-accent"></span>
+                        </span>
+                        Soporte 24/7 Activo
+                    </div>
+                    <h1
+                        class="text-5xl md:text-7xl font-bold tracking-tight text-white drop-shadow-sm"
+                    >
+                        ¿En qué podemos <span class="text-flow-accent italic"
+                            >ayudarte?</span>
+                    </h1>
+                    <p class="text-flow-sub text-xl md:text-2xl max-w-2xl mx-auto font-medium">
+                        Todo lo que necesitas para dominar Flow Movies en un solo lugar.
+                    </p>
+                </div>
+
+                <div class="relative max-w-2xl mx-auto group perspective-1000">
+                    <!-- Glow effect behind input -->
+                    <div class="absolute -inset-2 bg-gradient-to-r from-flow-accent/30 to-red-900/30 rounded-[2.5rem] blur-2xl opacity-0 group-focus-within:opacity-100 transition duration-1000"></div>
+                    
+                    <div class="relative flex items-center bg-white/[0.03] backdrop-blur-2xl border border-white/10 rounded-[2rem] p-2 focus-within:bg-black/40 focus-within:border-flow-accent/40 focus-within:scale-[1.02] transition-all duration-500 ease-out shadow-2xl">
+                        <div class="pl-6 text-flow-sub transition-colors group-focus-within:text-flow-accent">
+                            <Icon name="lucide:search" class="w-7 h-7" />
+                        </div>
+                        <input
+                            type="text"
+                            placeholder="¿Cómo podemos ayudarte hoy?"
+                            class="w-full py-5 px-6 bg-transparent border-none outline-none text-white placeholder:text-white/20 text-xl font-medium"
+                        />
+                        <button class="bg-flow-accent hover:bg-red-700 text-white px-8 py-4 rounded-2xl font-bold transition-all hover:shadow-[0_0_20px_rgba(220,38,38,0.5)] active:scale-95 hidden md:block">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Grid de Categorías (Bento Box) -->
+            <section class="space-y-12">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/5 pb-8">
+                    <div class="space-y-2 text-left">
+                        <h2 class="text-4xl font-black drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">Explorar Temas</h2>
+                        <p class="text-flow-sub font-medium">Selecciona una categoría para ver artículos detallados.</p>
+                    </div>
+                    <div class="hidden md:flex gap-2">
+                        <div class="h-1.5 w-12 bg-flow-accent rounded-full shadow-[0_0_10px_rgba(220,38,38,0.5)]"></div>
+                        <div class="h-1.5 w-4 bg-white/10 rounded-full"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {
+                        categories.map((cat, index) => (
+                            <a
+                                href={`#${cat.name.toLowerCase()}`}
+                                class:list={[
+                                    "group relative p-10 bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden cursor-pointer",
+                                    "transition-all duration-500 ease-out",
+                                    "hover:scale-105 hover:brightness-110",
+                                    "hover:border-flow-accent/50 hover:drop-shadow-[0_0_20px_rgba(220,38,38,0.3)]",
+                                    "flex flex-col justify-between h-auto min-h-[300px] py-4 px-4"
+                                ]}
+                            >
+                                <!-- Dark Gradient like Movie Card -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                                
+                                <!-- Hover Glow -->
+                                <div class="absolute -inset-2 bg-flow-accent/5 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+
+                                <div class="relative z-10 space-y-8">
+                                    <div class="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-white group-hover:text-flow-accent group-hover:scale-110 transition-all duration-500 shadow-2xl">
+                                        <Icon name={cat.icon} class="w-8 h-8" />
+                                    </div>
+                                    <div class="space-y-3">
+                                        <span class="text-[10px] text-flow-accent font-bold uppercase tracking-[0.2em] opacity-80">
+                                            Categoría
+                                        </span>
+                                        <h3 class="text-3xl font-black text-white group-hover:text-flow-accent group-hover:drop-shadow-[0_0_15px_rgba(220,38,38,0.8)] transition-all duration-500 leading-tight">
+                                            {cat.name}
+                                        </h3>
+                                        <p class="text-flow-sub text-base font-medium leading-relaxed line-clamp-3">
+                                            {cat.description}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="relative z-10 mt-10">
+                                    <div class="inline-flex items-center gap-3 bg-gray-400/10 border border-white/20 backdrop-blur-sm text-white px-8 py-3 rounded-full font-bold transition-all duration-300 group-hover:bg-flow-accent group-hover:border-flow-accent group-hover:shadow-[0_0_30px_rgba(220,38,38,0.6)] group-hover:scale-105 active:scale-95">
+                                        <span>Explorar</span>
+                                        <Icon name="lucide:arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                                    </div>
+                                </div>
+                            </a>
+                        ))
+                    }
+                </div>
+            </section>
+
+            <!-- 3. Sección de FAQs (Acordeón Premium) -->
+            <section class="max-w-4xl mx-auto space-y-16 py-10">
+                <div class="text-center space-y-6">
+                    <h2 class="text-5xl font-black tracking-tight drop-shadow-sm">Preguntas Frecuentes</h2>
+                    <p class="text-flow-sub text-lg font-medium max-w-xl mx-auto opacity-80">
+                        Respuestas rápidas a las dudas más comunes de nuestra comunidad.
+                    </p>
+                </div>
+
+                <div class="space-y-6">
+                    {
+                        faqs.map((faq) => (
+                            <details class="group bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl transition-all duration-500 open:bg-black/60 open:border-flow-accent/50 open:shadow-[0_0_40px_rgba(220,38,38,0.15)] overflow-hidden">
+                                <summary class="flex items-center justify-between p-8 cursor-pointer list-none select-none">
+                                    <span class="text-xl font-bold pr-10 text-white group-hover:text-flow-accent group-open:text-white transition-colors duration-300">
+                                        {faq.question}
+                                    </span>
+                                    <div class="faq-icon-container relative flex-shrink-0 w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-500 shadow-2xl overflow-hidden">
+                                        <!-- Plus Icon -->
+                                        <div class="plus-icon absolute transition-all duration-500">
+                                            <Icon name="lucide:plus" class="w-6 h-6 text-white" />
+                                        </div>
+                                        <!-- Minus Icon -->
+                                        <div class="minus-icon absolute transition-all duration-500 opacity-0 scale-50">
+                                            <Icon name="lucide:minus" class="w-6 h-6 text-white" />
+                                        </div>
+                                    </div>
+                                </summary>
+                                <div class="px-8 pb-8 pt-2">
+                                    <div class="h-px w-full bg-gradient-to-r from-flow-accent via-white/5 to-transparent mb-8 opacity-0 group-open:opacity-100 transition-all duration-1000"></div>
+                                    <p class="text-flow-sub text-lg leading-relaxed font-medium animate-slide-up">
+                                        {faq.answer}
+                                    </p>
+                                </div>
+                            </details>
+                        ))
+                    }
+                </div>
+                
+                <div class="text-center pt-8">
+                    <button class="px-10 py-4 rounded-full bg-white/5 border border-white/20 backdrop-blur-md text-white font-black hover:bg-flow-accent hover:border-flow-accent hover:shadow-[0_0_30px_rgba(220,38,38,0.5)] transition-all hover:scale-105 active:scale-95 uppercase tracking-widest text-xs">
+                        Ver todas las preguntas
+                    </button>
+                </div>
+            </section>
+
+            <!-- 4. Footer de Soporte Directo -->
+            <section class="relative">
+                <!-- Decorative element -->
+                <div class="absolute -top-24 -left-24 w-64 h-64 bg-flow-accent/20 blur-[100px] rounded-full"></div>
+                
+                <div class="relative p-12 md:p-24 text-center space-y-12 bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-[4rem] overflow-hidden shadow-2xl">
+                    <!-- Internal glass highlights -->
+                    <div class="absolute top-0 left-0 w-full h-px bg-white/20"></div>
+                    <div class="absolute bottom-0 left-0 w-full h-px bg-white/5"></div>
+                    
+                    <div class="space-y-6 relative">
+                        <div class="w-16 h-1 bg-flow-accent mx-auto rounded-full mb-8"></div>
+                        <h2 class="text-4xl md:text-6xl font-black tracking-tight text-balance">
+                            ¿Aún necesitas <span class="text-flow-accent">ayuda?</span>
+                        </h2>
+                        <p class="text-flow-sub text-xl max-w-2xl mx-auto font-medium leading-relaxed">
+                            Si no encontraste lo que buscabas, nuestro equipo de expertos está listo para atenderte personalmente.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-8 relative">
+                        <a
+                            href="#"
+                            class="group w-full sm:w-auto px-12 py-6 bg-flow-accent hover:bg-red-700 text-white font-black rounded-[2rem] transition-all hover:scale-105 active:scale-95 shadow-[0_20px_50px_rgba(220,38,38,0.3)] hover:shadow-[0_20px_60px_rgba(220,38,38,0.5)] flex items-center justify-center gap-4 overflow-hidden"
+                        >
+                            <Icon
+                                name="lucide:message-circle"
+                                class="w-6 h-6 animate-bounce"
+                            />
+                            <span>Chat en Vivo ahora</span>
+                            
+                            <!-- Shine effect -->
+                            <div class="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white/10 opacity-40 group-hover:animate-shine"></div>
+                        </a>
+                        <a
+                            href="#"
+                            class="w-full sm:w-auto px-12 py-6 bg-transparent border-2 border-white/20 hover:border-white text-white font-black rounded-[2rem] transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-4 overflow-hidden"
+                        >
+                            <Icon name="lucide:ticket" class="w-6 h-6" />
+                            <span>Enviar Ticket</span>
+                        </a>
+                    </div>
+
+                    <div class="pt-12 grid grid-cols-2 md:grid-cols-4 gap-12 max-w-4xl mx-auto border-t border-white/5">
+                        <div class="space-y-1 group">
+                            <span class="block text-white font-black text-2xl group-hover:text-flow-accent transition-colors">~2 min</span>
+                            <span class="text-xs uppercase tracking-widest text-flow-sub font-bold">Respuesta Chat</span>
+                        </div>
+                        <div class="space-y-1 group">
+                            <span class="block text-white font-black text-2xl group-hover:text-flow-accent transition-colors">98%</span>
+                            <span class="text-xs uppercase tracking-widest text-flow-sub font-bold">Satisfacción</span>
+                        </div>
+                        <div class="space-y-1 group">
+                            <span class="block text-white font-black text-2xl group-hover:text-flow-accent transition-colors">24/7</span>
+                            <span class="text-xs uppercase tracking-widest text-flow-sub font-bold">Disponibilidad</span>
+                        </div>
+                        <div class="space-y-1 group">
+                            <span class="block text-white font-black text-2xl group-hover:text-flow-accent transition-colors">12+</span>
+                            <span class="text-xs uppercase tracking-widest text-flow-sub font-bold">Idiomas</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    /* Custom Animations */
+    @keyframes shine {
+        from { left: -100%; }
+        to { left: 200%; }
+    }
+    
+    .animate-shine {
+        animation: shine 1.5s infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-30px) scale(1.1); }
+    }
+    
+    .animate-float {
+        animation: float 15s ease-in-out infinite;
+    }
+
+    @keyframes pulse-slow {
+        0%, 100% { opacity: 0.3; transform: scale(1); }
+        50% { opacity: 0.6; transform: scale(1.2); }
+    }
+    
+    .animate-pulse-slow {
+        animation: pulse-slow 10s ease-in-out infinite;
+    }
+
+    .animate-slide-up {
+        animation: slide-up 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
+
+    @keyframes slide-up {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* FAQ Accordion Transitions */
+    details[open] .faq-icon-container {
+        background-color: var(--color-flow-accent);
+        border-color: var(--color-flow-accent);
+        transform: rotate(180deg);
+        box-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
+    }
+
+    details[open] .plus-icon {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    details[open] .minus-icon {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* Remove default arrow from summary */
+    summary::-webkit-details-marker {
+        display: none;
+    }
+    
+    .perspective-1000 {
+        perspective: 1000px;
+    }
+</style>
