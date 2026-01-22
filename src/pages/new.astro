@@ -88,33 +88,56 @@ const popularPeople = popularPeopleData.results.slice(0, 12); // Optimized for g
           pulse={true}
         />
 
-        <div class="relative group mt-10">
+        <div class="relative mt-10">
           <div
-            class="flex gap-6 overflow-x-auto pb-12 snap-x snap-mandatory no-scrollbar scroll-smooth"
+            id="episodes-carousel"
+            class="flex gap-6 overflow-x-auto pb-12 snap-x snap-mandatory no-scrollbar scroll-smooth py-5"
           >
             {newEpisodes.map((show) => <TVNewsCard show={show} />)}
           </div>
 
-          <!-- Navigation Assistance -->
-          <div
-            class="absolute -right-4 top-1/2 -translate-y-1/2 hidden lg:flex"
+          <!-- Navigation Buttons -->
+          <button
+            id="carousel-prev-btn"
+            type="button"
+            aria-label="Desplazar carrusel hacia la izquierda"
+            class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 hidden lg:flex items-center justify-center w-12 h-12 bg-white/5 backdrop-blur-md rounded-full border border-white/10 text-flow-accent hover:bg-white/10 hover:border-white/20 hover:scale-110 active:scale-95 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 z-10"
           >
-            <div
-              class="w-12 h-12 bg-white/5 backdrop-blur-md rounded-full border border-white/10 flex items-center justify-center animate-bounce-horizontal"
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <svg
-                class="w-6 h-6 text-flow-accent"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                ><path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"></path></svg
-              >
-            </div>
-          </div>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              ></path>
+            </svg>
+          </button>
+
+          <button
+            id="carousel-next-btn"
+            type="button"
+            aria-label="Desplazar carrusel hacia la derecha"
+            class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 hidden lg:flex items-center justify-center w-12 h-12 bg-white/5 backdrop-blur-md rounded-full border border-white/10 text-flow-accent hover:bg-white/10 hover:border-white/20 hover:scale-110 active:scale-95 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 z-10"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              ></path>
+            </svg>
+          </button>
         </div>
       </section>
 
@@ -154,18 +177,69 @@ const popularPeople = popularPeopleData.results.slice(0, 12); // Optimized for g
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
-
-    @keyframes bounce-horizontal {
-      0%,
-      100% {
-        transform: translateX(0);
-      }
-      50% {
-        transform: translateX(10px);
-      }
-    }
-    .animate-bounce-horizontal {
-      animation: bounce-horizontal 2s ease-in-out infinite;
-    }
   </style>
+
+  <script>
+    // Carrusel de episodios - Navegación con botones
+    (function initCarousel() {
+      const carouselEl = document.getElementById("episodes-carousel");
+      const prevBtnEl = document.getElementById("carousel-prev-btn");
+      const nextBtnEl = document.getElementById("carousel-next-btn");
+
+      if (!carouselEl || !prevBtnEl || !nextBtnEl) return;
+
+      const carousel = carouselEl as HTMLElement;
+      const prevBtn = prevBtnEl as HTMLButtonElement;
+      const nextBtn = nextBtnEl as HTMLButtonElement;
+
+      // Función para actualizar el estado de los botones
+      function updateButtonStates() {
+        const { scrollLeft, scrollWidth, clientWidth } = carousel;
+        const isAtStart = scrollLeft <= 0;
+        const isAtEnd = scrollLeft >= scrollWidth - clientWidth - 1;
+
+        prevBtn.disabled = isAtStart;
+        nextBtn.disabled = isAtEnd;
+      }
+
+      // Desplazar hacia la derecha
+      nextBtn.addEventListener("click", () => {
+        const cardElement = carousel.querySelector("a") as HTMLElement | null;
+        const cardWidth = cardElement?.getBoundingClientRect().width || 400;
+        const gap = 24; // gap-6 = 1.5rem = 24px
+        const scrollAmount = cardWidth + gap;
+
+        carousel.scrollBy({
+          left: scrollAmount,
+          behavior: "smooth",
+        });
+      });
+
+      // Desplazar hacia la izquierda
+      prevBtn.addEventListener("click", () => {
+        const cardElement = carousel.querySelector("a") as HTMLElement | null;
+        const cardWidth = cardElement?.getBoundingClientRect().width || 400;
+        const gap = 24; // gap-6 = 1.5rem = 24px
+        const scrollAmount = cardWidth + gap;
+
+        carousel.scrollBy({
+          left: -scrollAmount,
+          behavior: "smooth",
+        });
+      });
+
+      // Actualizar estado de botones al hacer scroll
+      carousel.addEventListener("scroll", updateButtonStates);
+
+      // Actualizar estado inicial
+      updateButtonStates();
+
+      // Actualizar estado al redimensionar la ventana
+      let resizeTimeout: ReturnType<typeof setTimeout>;
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(updateButtonStates, 150);
+      });
+    })();
+  </script>
 </Layout>
