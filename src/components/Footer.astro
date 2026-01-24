@@ -6,19 +6,19 @@ import SocialIcons from "./footer/SocialIcons.astro";
 const footerLinks = {
     explorar: [
         { label: "Home", href: "/" },
-        { label: "Películas", href: "/movies" },
-        { label: "Series", href: "/tv" },
-        { label: "Novedades", href: "/new" },
+        { label: "Movies", href: "/movies" },
+        { label: "Series", href: "/tvshows" },
+        { label: "New", href: "/new" },
     ],
     soporte: [
-        { label: "Centro de ayuda", href: "/help" },
-        { label: "Términos de servicio", href: "/terms" },
-        { label: "Privacidad", href: "/privacy" },
+        { label: "Help Center", href: "/help" },
+        { label: "Terms of Service", href: "/terms" },
+        { label: "Privacy", href: "/privacy" },
     ],
     cuenta: [
-        { label: "Mi Lista", href: "/list" },
-        { label: "Perfil", href: "/profile" },
-        { label: "Configuración", href: "/settings" },
+        { label: "My List", href: "/list" },
+        { label: "Profile", href: "/profile" },
+        { label: "Settings", href: "/settings" },
     ],
 };
 ---
@@ -34,17 +34,15 @@ const footerLinks = {
                     <Logo />
                 </div>
                 <p class="text-flow-sub text-sm leading-relaxed max-w-xs">
-                    Tu destino definitivo para el entretenimiento fluido.
-                    Disfruta de las mejores películas y series con una
-                    experiencia premium y minimalista.
+                    Your ultimate destination for seamless entertainment. Enjoy the best movies and series with a premium and minimalist experience.
                 </p>
                 <SocialIcons />
             </div>
 
             <!-- Navigation Columns -->
-            <FooterColumn title="Explorar" links={footerLinks.explorar} />
-            <FooterColumn title="Soporte" links={footerLinks.soporte} />
-            <FooterColumn title="Cuenta" links={footerLinks.cuenta} />
+            <FooterColumn title="Explore" links={footerLinks.explorar} />
+            <FooterColumn title="Support" links={footerLinks.soporte} />
+            <FooterColumn title="Account" links={footerLinks.cuenta} />
         </div>
 
         <!-- Bottom Section -->
@@ -52,7 +50,7 @@ const footerLinks = {
             class="pt-8 border-t border-flow-border/30 flex flex-col md:flex-row justify-between items-center gap-4"
         >
             <p class="text-flow-sub text-xs">
-                © {new Date().getFullYear()} Flow Movies. Todos los derechos reservados.
+                © {new Date().getFullYear()} Flow Movies. All rights reserved..
             </p>
             <div class="flex gap-6">
                 <a
@@ -68,7 +66,7 @@ const footerLinks = {
                 <a
                     href="#"
                     class="text-flow-sub hover:text-white text-xs transition-colors transition-colors"
-                    >Publicidad</a
+                    >Advertising</a
                 >
             </div>
         </div>

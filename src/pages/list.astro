@@ -1,0 +1,134 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="My List | Flow Movies">
+    <div
+        class="relative min-h-[80vh] flex flex-col items-center justify-center overflow-hidden px-6 mt-35"
+    >
+        <!-- Background Decoration -->
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-flow-accent/10 rounded-full blur-[120px] -z-10 animate-pulse"
+        >
+        </div>
+        <div
+            class="absolute top-1/4 right-1/4 w-[300px] h-[300px] bg-blue-500/5 rounded-full blur-[100px] -z-10 animate-float"
+        >
+        </div>
+
+        <!-- Main Content Card -->
+        <div
+            class="group relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[3rem] p-8 md:p-16 max-w-2xl w-full text-center shadow-2xl transition-all duration-700 hover:border-flow-accent/30 hover:shadow-flow-accent/10"
+        >
+            <!-- Icon/Badge Decoration -->
+            <div class="flex justify-center mb-8">
+                <div class="relative">
+                    <div
+                        class="absolute inset-0 bg-flow-accent blur-xl opacity-20 group-hover:opacity-40 transition-opacity"
+                    >
+                    </div>
+                    <div
+                        class="relative w-20 h-20 bg-neutral-900 border border-white/10 rounded-2xl flex items-center justify-center"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-10 h-10 text-flow-accent"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                            ></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text Section -->
+            <h1
+                class="text-xs font-black uppercase tracking-[0.4em] text-flow-accent mb-6 animate-fade-in"
+            >
+                Feature in development
+            </h1>
+
+            <h2
+                class="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter leading-none"
+            >
+                My List <br />
+                <span
+                    class="bg-gradient-to-r from-white via-white to-white/30 bg-clip-text text-transparent italic"
+                    >Coming soon</span
+                >
+            </h2>
+
+            <p
+                class="text-flow-sub text-lg md:text-xl font-medium max-w-md mx-auto mb-12 leading-relaxed"
+            >
+                We are working to bring you the best saving and personalization
+                experience. Very soon you will be able to organize your favorite
+                movies and series here.
+            </p>
+
+            <!-- Action Button -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                    href="/"
+                    class="px-10 py-4 bg-flow-accent text-white font-black uppercase text-xs tracking-widest hover:drop-shadow-[0_0_15px_rgba(220,38,38,0.4)] rounded-full hover:bg-flow-accent hover:text-white transition-all duration-500 shadow-xl shadow-white/5 active:scale-95"
+                >
+                    Back to Home
+                </a>
+                <button
+                    class="px-10 py-4 bg-transparent border border-white/10 text-white font-black uppercase text-xs tracking-widest hover:drop-shadow-[0_0_15px_rgba(220,220,220,0.5)] rounded-full hover:bg-white/5 transition-all duration-500 active:scale-95"
+                >
+                    Notify me
+                </button>
+            </div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="mt-16 flex items-center gap-8 opacity-20 hidden md:flex">
+            <div class="h-px w-24 bg-gradient-to-r from-transparent to-white">
+            </div>
+            <span class="text-[10px] font-black uppercase tracking-[0.5em]"
+                >Flow Movies 2026</span
+            >
+            <div class="h-px w-24 bg-gradient-to-l from-transparent to-white">
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    @keyframes float {
+        0%,
+        100% {
+            transform: translateY(0) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-20px) rotate(5deg);
+        }
+    }
+
+    .animate-float {
+        animation: float 10s ease-in-out infinite;
+    }
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fade-in 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
+</style>
