@@ -6,21 +6,16 @@ import react from '@astrojs/react';
 
 import icon from 'astro-icon';
 
-import node from '@astrojs/node';
+import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
   vite: {
-    plugins: [tailwindcss()],
-    server: {
-      allowedHosts: ["significance-surprised-think-lightning.trycloudflare.com"]
-    }
+    plugins: [tailwindcss()]
   },
 
   integrations: [react(), icon()],
 
-  adapter: node({
-    mode: 'standalone'
-  })
+  adapter: vercel()
 });
